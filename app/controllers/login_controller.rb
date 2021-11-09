@@ -22,12 +22,17 @@ class LoginController < ApplicationController
     redirect_to root_path
   end
   def register
-    user = User.new(:name=>params[:name],:password=>params[:password])
+    @random_number = rand(1000..9999) 
+    user = User.new(:employee_id=>@random_number,
+                    :name=>params[:name],
+                    :password=>params[:password],
+                    :department=>params[:department],
+                    :hire_date=>DateTime.now,
+                    :employee_type=>params[:employee_type])
     @user_find = User.find_by(name: params[:name])
-    unless @user_find.nil?
+    if @user_find.nil? #ถ้าไม่เจอชื่อซ้ำใน database
       user.save
-      log_in user
-      redirect_to main_page_path
+      redirect_to login_path
     else
       render 'register_new'
     end
