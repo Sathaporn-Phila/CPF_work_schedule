@@ -1,10 +1,12 @@
 = form_with(model: @user) do |f|
-  .card
-    .card-body
-      .mb-3
-        = f.label :name, { class: "form-label"}
-        = f.text_field :name, { class: "form-control", placeholder: "Enter name" }
-      .mb-3
-        = f.label :password, { class: "form-label"}
-        = f.text_field :password, { class: "form-control", placeholder: "Enter password" }
-      = submit_tag "Submit", class: "btn btn-primary"
+  .mb-3
+    = f.label "ชื่อ-นามสกุล", { class: "form-label"}
+    = f.text_field :name, { class: "form-control", placeholder: "ใ่ส่ชื่อและนามสกุล" }
+  .mb-3
+    = f.label "รหัสผ่าน", { class: "form-label"}
+    = f.text_field :password, { class: "form-control", placeholder: "ใส่รหัสผ่าน" }
+  .text-center
+    - if request.fullpath == "/login"
+      = submit_tag 'เข้าสู่ระบบ',class: "btn btn-primary"
+    - else
+      = submit_tag 'สมัครสมาชิก',class: "btn btn-primary" 

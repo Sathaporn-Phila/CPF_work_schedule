@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root 'login#index'
+  root :to => redirect('/login')
   resources :users
+  get '/main_page', to: 'login#index'
   get '/login', to: 'login#login_new'
   post '/login',to: 'login#create'
   get '/register', to: 'login#register_new'

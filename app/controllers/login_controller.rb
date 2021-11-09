@@ -9,7 +9,7 @@ class LoginController < ApplicationController
     unless user.nil?
       if user && user.authenticate(params[:password])
         log_in user
-        redirect_to root_path
+        redirect_to main_page_path
       else
         render 'login_new'
       end
@@ -27,7 +27,7 @@ class LoginController < ApplicationController
     unless @user_find.nil?
       user.save
       log_in user
-      redirect_to root_path
+      redirect_to main_page_path
     else
       render 'register_new'
     end
