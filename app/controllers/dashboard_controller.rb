@@ -7,8 +7,12 @@ class DashboardController < ApplicationController
         redirect_to root_path
     end
     def check_timestamp
-        @timestamp = DateTime.now();
-        logger.debug @timestamp
+        @time_object = ScheduleActualTime.create(
+            :global_position=>params[:position],
+            :type_attendance=>"Check in",
+            :time_attendance=>DateTime.now()
+        )
+        current_user.schedule_actual_times << @time_object
         redirect_to main_page_path
     end
 end

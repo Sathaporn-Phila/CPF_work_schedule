@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_17_093609) do
+ActiveRecord::Schema.define(version: 2021_11_10_072957) do
+
+  create_table "schedule_actual_times", force: :cascade do |t|
+    t.string "global_position"
+    t.string "type_attendance"
+    t.datetime "time_attendance"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_schedule_actual_times_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.integer "employee_id"
@@ -21,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_10_17_093609) do
     t.string "employee_type"
     t.string "password_digest"
     t.string "role"
+    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

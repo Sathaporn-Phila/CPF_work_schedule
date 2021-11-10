@@ -8,5 +8,10 @@
   %div ชื่อ: #{current_user.name}
   %div หมายเลขประจำตัว: #{current_user.employee_id}
  %div.flex-grow-1.align-items-center#check-button
-  =link_to timestamp_path do 
+  =link_to timestamp_path(@current_user,:position=>"10.1.5.4") do 
    %i.bi.bi-chevron-double-right.btn.btn-primary{"aria-hidden" => "true"} Check timestamp
+
+:javascript
+  function getLocation() {
+   navigation.geolocation.getCurrentPosition(position)
+  }
