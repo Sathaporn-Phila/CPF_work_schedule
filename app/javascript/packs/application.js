@@ -4,6 +4,7 @@
 // that code so it'll be compiled.
 require("@popperjs/core")
 require("bootstrap")
+require('bootstrap-icons/font/bootstrap-icons.css');
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"

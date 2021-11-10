@@ -1,4 +1,8 @@
 = form_with(model: @user) do |f|
+  - if request.fullpath == "/register"
+    .mb-3
+      = f.label "คำนำหน้า", { class: "form-label"}
+      = f.select :title_name,['นาย','นางสาว'], { class: "form-control" }
   .mb-3
     = f.label "ชื่อ-นามสกุล", { class: "form-label"}
     = f.text_field :name, { class: "form-control", placeholder: "ใ่ส่ชื่อและนามสกุล" }
@@ -10,8 +14,11 @@
       = f.label "สถานที่ทำงาน", { class: "form-label"}
       = f.select :department, ['ธุรกิจโรงงานชำแหละไก่ โคราช','กิจการฟาร์มไก่ โคราช','ธุรกิจไก่กระทง โคราช','ธุรกิจโรงงานแปรรูปเนื้อไก่ โคราช(สายรถและ Subcontract)','โรงฟักโชคชัย','ฟาร์มโกรกหว้า 1','ฟาร์มโกรกหว้า 2','ฟาร์มพรหมราช 6'], { class: "form-control"}
     .mb-3 
-      = f.label "ประเภทผู้ทำงาน", { class: "form-label"}
+      = f.label "ประเภทรายได้ผู้ทำงาน", { class: "form-label"}
       = f.select :employee_type,['monthly employee','daily employee','outsource employee'], { class: "form-control" }
+    .mb-3
+      = f.label "หน้าที่ผู้ทำงาน", { class: "form-label"}
+      = f.select :role,['ผู้จัดการ','หัวหน้าแผนก','คนงานทั่วไป'], { class: "form-control" }
   .text-center
     - if request.fullpath == "/login"
       = submit_tag 'เข้าสู่ระบบ',class: "btn btn-primary"

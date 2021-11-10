@@ -14,11 +14,13 @@ ActiveRecord::Schema.define(version: 2021_10_17_093609) do
 
   create_table "users", force: :cascade do |t|
     t.integer "employee_id"
+    t.string "title_name"
     t.string "name"
     t.string "department"
     t.datetime "hire_date"
     t.string "employee_type"
     t.string "password_digest"
+    t.string "role"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

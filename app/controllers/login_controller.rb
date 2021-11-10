@@ -24,11 +24,13 @@ class LoginController < ApplicationController
   def register
     @random_number = rand(1000..9999) 
     user = User.new(:employee_id=>@random_number,
+                    :title_name=>params[:title_name],
                     :name=>params[:name],
                     :password=>params[:password],
                     :department=>params[:department],
                     :hire_date=>DateTime.now,
-                    :employee_type=>params[:employee_type])
+                    :employee_type=>params[:employee_type],
+                    :role=>params[:role])
     @user_find = User.find_by(name: params[:name])
     if @user_find.nil? #ถ้าไม่เจอชื่อซ้ำใน database
       user.save

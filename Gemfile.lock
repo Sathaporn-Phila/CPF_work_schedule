@@ -142,6 +142,7 @@ GEM
       rake (>= 0.13)
       thor (~> 1.0)
     rake (13.0.6)
+    redis (4.5.1)
     regexp_parser (2.1.1)
     rexml (3.2.5)
     rubyzip (2.3.2)
@@ -203,7 +204,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  bcrypt
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
@@ -213,6 +214,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.1)
+  redis (~> 4.0)
   sass-rails (>= 6)
   selenium-webdriver
   sqlite3 (~> 1.4)

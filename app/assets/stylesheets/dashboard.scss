@@ -1,3 +1,15 @@
 // Place all the styles related to the dashboard controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+header {
+    background-color: $indigo-400;
+}
+.btn-primary{
+    background-color: $orange-500 !important;
+}
+#personal-data{
+    margin-left: 5%;
+}
