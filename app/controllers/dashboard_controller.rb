@@ -15,6 +15,12 @@ class DashboardController < ApplicationController
             :time_attendance=>DateTime.now()
         )
         current_user.schedule_actual_times << @time_object
+        ActionCable.server.broadcast(
+            'actual_time_channel',{
+            name: current_user.name,
+            time_attendance: @time_object.time_attendance
+            }
+        )
         redirect_to main_page_path
     end
 end

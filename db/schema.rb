@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
     t.string "employee_type"
     t.string "password_digest"
     t.string "role"
+    t.string "phone_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
