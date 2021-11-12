@@ -27,9 +27,10 @@ class LoginController < ApplicationController
                     :title_name=>params[:title_name],
                     :name=>params[:name],
                     :password=>params[:password],
+                    :factory=>params[:factory],
                     :department=>params[:department],
                     :hire_date=>DateTime.now,
-                    :employee_type=>params[:employee_type],
+                    :employee_income_type=>params[:employee_income_type],
                     :role=>params[:role])
     @user_find = User.find_by(name: params[:name])
     if @user_find.nil? #ถ้าไม่เจอชื่อซ้ำใน database
@@ -38,5 +39,6 @@ class LoginController < ApplicationController
     else
       render 'register_new'
     end
+    
   end
 end

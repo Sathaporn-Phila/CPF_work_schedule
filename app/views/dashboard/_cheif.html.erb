@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="app/assets/stylesheet/style.css" rel="stylesheet">
+    <title> cheif </title>
+</head>
+<body>
+
+    <button class="tablink" onclick="openPage('work1', this, '#FF7B89')" id="defaultOpen">งานถอนขน</button>
+    <button class="tablink" onclick="openPage('work2', this, '#8A5082')">งานไก่ตกราว</button>
+    <button class="tablink" onclick="openPage('work3', this, '#758EB7')">งานเชือดไก่</button>
+    <button class="tablink" onclick="openPage('work4', this, '#A5CAD2')">งานสินค้าแช่แข็ง</button>
+
+    <div id="work1" class="tabcontent">
+        <h3>งานถอนขน</h3>
+        <p>รอแปะตารางงาน</p>
+    <!--
+        <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
+            <thead>
+                <th>ชื่อ-นามสกุล</th>
+                <th>เวลา-เข้า</th>
+                <th>เวล-ออก</th>
+                <th>OT <select name="OT" id="1">
+                        <option value="1">plan 1</option>
+                        <option value="2">plan 2</option> 
+                    </select>
+                </th>
+            </thead>
+            <tbody id="time_object">
+                <% User.where(factory: "ธุรกิจโรงงานแปรรูปเนื้อไก่ โคราช").each do |user|%>
+                <tr>
+                    <td>
+                        <%= user.name%>
+                        <%= user.schedule_actual_time.time_in%>
+                        <%= user.schedule_actual_time.time_out%>
+                     </td>
+                </tr>
+                <%end%>
+            </tbody>
+        </table>
+    -->
+    </div>
+
+    <div id="work2" class="tabcontent">
+        <h3>งานไก่ตกราว</h3>
+        <p>รอแปะตารางงาน</p>
+    </div>
+
+    <div id="work3" class="tabcontent">
+        <h3>งานเชือดไก่</h3>
+        <p>รอแปะตารางงาน</p>
+    </div>
+
+    <div id="work4" class="tabcontent">
+        <h3>งานจัดเก็บและจ่ายสินค้าแช่แข็ง</h3>
+        <p>รอแปะตารางงาน</p>
+    </div>
+        
+    <script>
+        function openPage(pageName,elmnt,color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+
+</body>
+</html>

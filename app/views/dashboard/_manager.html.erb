@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> manager </title>
+</head>
+<body>
+    <div class='column'>
+        <p> ชื่อ-นามสกุล : <%=@current_user.name %> </p>
+        <p> แผนก : <%= @current_user.department %> </p>
+    </div>
+    <p> จำนวนแผนกที่ดูแล : </span>
+
+    <div>
+        <%= link_to timestamp_path(@current_user) do%>
+            <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check timestamp </i>
+        <%end%>
+    </div>
+
+    <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
+        <thead>
+            <th>ชื่อ-นามสกุล</th>
+            <th>เวลา-เข้า</th>
+            <th>เวลา-ออก</th>
+            <th> OT <select name="OT" id="1">
+                    <option value="1">plan 1</option>
+                    <option value="2">plan 2</option> 
+                </select>
+            </th>
+        </thead>
+        <tbody id="time_object">
+            <% User.where(factory: @current_user.factory, department: @current_user.department, role: "คนงานทั่วไป").each do |row|%>
+                <%# <% unless ScheduleActualTime.where(user_id: row.id).nil?  %> %>
+                <tr>
+                    <td><%= row.name%> </td>
+                    <td><%= row.id%> </td>
+                    <td><%= ScheduleActualTime.find(1).time_in%></td>
+                    <%# <td><%= ScheduleActualTime.find(user_id: row.id)%> 
+                    <%# <td><%= @actual_time.find(user_id: row.id).time_in%>
+                    <%# <td><%= @actual_time.find(user_id: row.id).time_in%> 
+                </tr>
+                <%# <%end%> %>
+            <%end %>
+            <%# <%@actual_time.each do |row| %>
+                <%# <tr> %>
+                    <%# <<%#%begin%> 
+                        <%# <%=row.user_id%> 
+                    <%# <%rescue => e%> 
+                    <%# <%else%> 
+                        <%# <td><%=User.find_by_id(row.user_id).name%> </td> 
+                        <%# <td><%=row.time_in%></td> 
+                    <%#<%end%>
+                <%#</tr>
+            <%#<%end%>                        
+                
+        </tbody>
+    </table>
+</body>
+</html>

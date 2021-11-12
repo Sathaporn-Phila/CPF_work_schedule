@@ -14,9 +14,10 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
 
   create_table "schedule_actual_times", force: :cascade do |t|
     t.string "global_position"
-    t.string "type_attendance"
-    t.datetime "time_attendance"
+    t.datetime "time_in"
+    t.datetime "time_out"
     t.integer "user_id"
+    t.float "ot_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_schedule_actual_times_on_user_id"
@@ -26,9 +27,10 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
     t.integer "employee_id"
     t.string "title_name"
     t.string "name"
+    t.string "factory"
     t.string "department"
     t.datetime "hire_date"
-    t.string "employee_type"
+    t.string "employee_income_type"
     t.string "password_digest"
     t.string "role"
     t.string "phone_number"

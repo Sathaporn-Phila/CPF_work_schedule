@@ -1,3 +1,4 @@
+-#
 :javascript
   getGeoLocation();
   function getGeoLocation() {
@@ -14,7 +15,7 @@
     %div.flex-grow-1.text-center#header-text CPF schedule workplan
 %div{:class =>"d-flex flex-row align-items-center"}
   %div#personal-data{:class =>"d-flex flex-column flex-grow-1"}
-    %div ชื่อ: #{current_user.name}
+    %div ชื่อ: #{current_user.name}  จำนวนแผนกที่ดูแล: 
     %div หมายเลขประจำตัว: #{current_user.employee_id}
     %div.flex-grow-1.align-items-center#check-button
       =link_to timestamp_path(@current_user) do 
@@ -30,5 +31,4 @@
       - @actual_time.each do |row|
         %tr
           %td= User.find_by_id(row.user_id).name
-          %td= row.time_attendance
 

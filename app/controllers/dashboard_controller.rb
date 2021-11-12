@@ -11,16 +11,16 @@ class DashboardController < ApplicationController
         @lat_lng = cookies[:lat_lng]
         @time_object = ScheduleActualTime.create(
             :global_position=>@lat_lng,
-            :type_attendance=>"Check in",
-            :time_attendance=>DateTime.now()
+            :time_in=>DateTime.now()
         )
         current_user.schedule_actual_times << @time_object
         ActionCable.server.broadcast(
             'actual_time_channel',{
             name: current_user.name,
-            time_attendance: @time_object.time_attendance
+            time_in: @time_object.time_in
             }
-        )
+         )
+        
         redirect_to main_page_path
     end
 end

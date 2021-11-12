@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> worker </title>
+    </head>
+
+    <body>
+        <span> ชื่อ-นามสกุล : <%=@current_user.name %> </span>
+        <br>
+        <span> แผนก : <%= @current_user.department %> </span>
+        <span>
+        <div>
+            <%= link_to timestamp_path(@current_user) do%>
+                <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check timestamp </i>
+            <%end%>
+        </div>
+        </span>
+        <span>
+        <h2> ปฏิทินเดือน... </h2>
+
+        <!-- รอแก้เป็นปฏิทิน -->
+        <div class="square">
+        </div>
+        <!-- รอแก้เป็นปฏิทิน -->
+
+        <!-- นับจำนวนการทำงาน -->
+        <div class='column'>
+            <div> จำนวนชั่วโมงที่ทำ: ... ชั่วโมง </div>
+            <div> วันหยุดที่เหลือ: ... วัน </div>
+            <div> จำนวน OT ที่ทำ: ... ชั่วโมง </div>
+        </div>
+        <!-- นับจำนวนการทำงาน -->
+
+    </body>
+</html>  
