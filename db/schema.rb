@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
     t.string "global_position"
     t.datetime "time_in"
     t.datetime "time_out"
-    t.integer "user_id"
+    t.integer "user_id", null: false
     t.float "ot_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -38,4 +38,5 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "schedule_actual_times", "users"
 end

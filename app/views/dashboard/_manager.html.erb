@@ -11,7 +11,7 @@
         <p> ชื่อ-นามสกุล : <%=@current_user.name %> </p>
         <p> แผนก : <%= @current_user.department %> </p>
     </div>
-    <p> จำนวนแผนกที่ดูแล : </span>
+    <span> จำนวนแผนกที่ดูแล : <%= @current_user.factory %></span>
 
     <div>
         <%= link_to timestamp_path(@current_user) do%>
@@ -31,30 +31,15 @@
             </th>
         </thead>
         <tbody id="time_object">
-            <% User.where(factory: @current_user.factory, department: @current_user.department, role: "คนงานทั่วไป").each do |row|%>
-                <%# <% unless ScheduleActualTime.where(user_id: row.id).nil?  %> %>
+            <% @actual_time.each do |row|%>
                 <tr>
-                    <td><%= row.name%> </td>
-                    <td><%= row.id%> </td>
-                    <td><%= ScheduleActualTime.find(1).time_in%></td>
-                    <%# <td><%= ScheduleActualTime.find(user_id: row.id)%> 
-                    <%# <td><%= @actual_time.find(user_id: row.id).time_in%>
-                    <%# <td><%= @actual_time.find(user_id: row.id).time_in%> 
+                    <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory).length == 0%>
+                        <td><%= User.find(row.user_id).name%></td>
+                        <td><%= row.time_in%></td>
+                    <%end%>
                 </tr>
-                <%# <%end%> %>
-            <%end %>
-            <%# <%@actual_time.each do |row| %>
-                <%# <tr> %>
-                    <%# <<%#%begin%> 
-                        <%# <%=row.user_id%> 
-                    <%# <%rescue => e%> 
-                    <%# <%else%> 
-                        <%# <td><%=User.find_by_id(row.user_id).name%> </td> 
-                        <%# <td><%=row.time_in%></td> 
-                    <%#<%end%>
-                <%#</tr>
-            <%#<%end%>                        
-                
+            <%end%>                       
+      
         </tbody>
     </table>
 </body>

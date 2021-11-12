@@ -7,7 +7,7 @@ consumer.subscriptions.create({ channel: "ActualTimeChannel", room: "schedule ro
     },
     received(data) {
         const element = document.querySelector("#time_object")
-        const elem = '<tr><td>'+ data["name"] +'</td>'+'<td>'+ data["time_attendance"] +'</td></tr>'
+        const elem = '<tr><td>'+ data["name"] +'</td>'+'<td>'+ data["time_in"] +'</td></tr>'
         element.insertAdjacentHTML("beforeend", elem)
     }
 })

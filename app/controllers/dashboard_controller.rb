@@ -19,8 +19,7 @@ class DashboardController < ApplicationController
             name: current_user.name,
             time_in: @time_object.time_in
             }
-         )
-        
+        )
         redirect_to main_page_path
     end
 end

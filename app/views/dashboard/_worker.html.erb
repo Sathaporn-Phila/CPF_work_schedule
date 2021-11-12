@@ -11,7 +11,7 @@
     <body>
         <span> ชื่อ-นามสกุล : <%=@current_user.name %> </span>
         <br>
-        <span> แผนก : <%= @current_user.department %> </span>
+        <span> แผนก : <%= @current_user.id %> </span>
         <span>
         <div>
             <%= link_to timestamp_path(@current_user) do%>
