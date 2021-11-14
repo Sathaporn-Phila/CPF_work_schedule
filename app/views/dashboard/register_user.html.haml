@@ -22,6 +22,10 @@
     .mb-3
       = f.label "หน้าที่ผู้ทำงาน", { class: "form-label"}
       = f.select :role,['ผู้จัดการ','หัวหน้าแผนก','คนงานทั่วไป'], { class: "form-control" }
+    - if @shift_code
+      .mb-3
+        = f.label "เวลากะเข้า-ออก", { class: "form-label"}
+        = f.select :shift_code,options_for_select(@shift_code), { class: "form-control" }
   .text-center
     - if request.fullpath == "/login"
       = submit_tag 'เข้าสู่ระบบ',class: "btn btn-primary"

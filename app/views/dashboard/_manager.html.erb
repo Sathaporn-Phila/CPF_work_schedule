@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
     <title> manager </title>
 </head>
 <body>
     <div class="column">
         <span class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </span>
-        <span class="display-font"> แผนก : <%= @current_user.department %> </span>
-        <p class="display-font"> จำนวนแผนกที่ดูแล : <%= @current_user.factory %></p>
+        <p class="display-font"> โรงงาน : <%= @current_user.factory %></p>
     </div>
 
-    
     <div>
         <span class="display-font"> วันที่ : <%= DateTime.now()%> </span>
     </div>
@@ -30,33 +29,71 @@
             <% end %>
         <% end %>
     </div>
+    <br>
+<!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
+    <%# <% @department_all.each do |name| %> 
+        <button class="tablink" onclick="openPage('work1', this, '#FF7B89')" id="defaultOpen">งานถอนขน</button>
+        <!-- <button class="tablink" onclick="openPage('work2', this, '#8A5082')">งานไก่ตกราว</button>
+        <button class="tablink" onclick="openPage('work3', this, '#758EB7')">งานเชือดไก่</button>
+        <button class="tablink" onclick="openPage('work4', this, '#A5CAD2')">งานสินค้าแช่แข็ง</button> -->
+            
+        <div id="work1" class="tabcontent">
+            <h3>งานถอนขน</h3>
+            <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
+                <thead>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>เวลา-เข้า</th>
+                    <th>เวลา-ออก</th>
+                    <th> โรงงาน </th>
+                </thead>
+                <tbody id="time_object">
+                    <% @actual_time.each do |row|%>
+                        <tr id=<%=User.find(row.user_id).name%> >
+                    
+                            <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory).length == 0%>
+                                <td><a> <%= User.find(row.user_id).name%> </a></td>
+                                <td class='btn-primary'><%= row.time_in.strftime("%H:%M:%S")%></td>
+                                <% if row.time_out.nil?%>
+                                    <td>#</td>
+                                <% else %>
+                                    <td class='btn-red'><%= row.time_out.strftime("%H:%M:%S")%></td>
+                                <% end %>
+                                <td><%= User.find(row.user_id).factory%></td>
+                            <%end%>
+                        </tr>
+                    <%end%>                       
+                </tbody>
+            </table>
+        </div>
 
+        <!-- <div id="work2" class="tabcontent">
+            <h3>งานไก่ตกราว</h3>
+        </div>
 
-    <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
-        <thead>
-            <th>ชื่อ-นามสกุล</th>
-            <th>เวลา-เข้า</th>
-            <th>เวลา-ออก</th>
-            <th> โรงงาน </th>
-        </thead>
-        <tbody id="time_object">
-            <% @actual_time.each do |row|%>
-                <tr id=<%=User.find(row.user_id).name%>>
-                <%# แสดงคนงานทั้งหมด ที่อยู่ในแผนกและ โรงงานเดียวกับหัวหน้าแผนก %>
-                    <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory).length == 0%>
-                        <td><%= User.find(row.user_id).name%></td>
-                        <td backgroundColor="green"><%= row.time_in.strftime("%H:%M:%S")%></td>
-                        <% if row.time_out.nil?%>
-                            <td>#</td>
-                        <% else %>
-                            <td><%= row.time_out.strftime("%H:%M:%S")%></td>
-                        <% end %>
-                        <td><%= User.find(row.user_id).factory%></td>
-                    <%end%>
-                </tr>
-            <%end%>                       
-      
-        </tbody>
-    </table>
+        <div id="work3" class="tabcontent">
+            <h3>งานเชือดไก่</h3>
+        </div>
+
+        <div id="work4" class="tabcontent">
+            <h3>งานจัดเก็บและจ่ายสินค้าแช่แข็ง</h3>
+        </div> -->
+            
+        <script>
+            function openPage(pageName,elmnt,color) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+            document.getElementById(pageName).style.display = "block";
+            elmnt.style.backgroundColor = color;
+            }
+            document.getElementById("defaultOpen").click();
+        </script>
+    <%# <% end %>
 </body>
 </html>

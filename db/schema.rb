@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_13_163604) do
+ActiveRecord::Schema.define(version: 2021_11_14_152616) do
 
   create_table "schedule_actual_times", force: :cascade do |t|
-    t.string "global_position"
+    t.string "department_name"
     t.datetime "time_in"
     t.datetime "time_out"
     t.integer "user_id", null: false
@@ -39,6 +39,19 @@ ActiveRecord::Schema.define(version: 2021_11_13_163604) do
     t.string "department_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "shiftcodes", force: :cascade do |t|
+    t.string "code_name"
+    t.datetime "start_in"
+    t.datetime "end_in"
+    t.datetime "start_break"
+    t.datetime "end_break"
+    t.float "work_time"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_shiftcodes_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
