@@ -1,6 +1,6 @@
-class CreateScheduleActualTimes < ActiveRecord::Migration[6.1]
+class CreateHistories < ActiveRecord::Migration[6.1]
   def change
-    create_table :schedule_actual_times do |t|
+    create_table :histories do |t|
       t.string :department_name
       t.datetime :time_in
       t.datetime :time_out

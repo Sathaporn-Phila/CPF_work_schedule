@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_10_072957) do
+ActiveRecord::Schema.define(version: 2021_11_13_163604) do
 
   create_table "schedule_actual_times", force: :cascade do |t|
     t.string "global_position"
@@ -21,6 +21,24 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_schedule_actual_times_on_user_id"
+  end
+
+  create_table "schedule_plantimes", force: :cascade do |t|
+    t.string "shift_code"
+    t.datetime "time_in"
+    t.datetime "time_out"
+    t.float "ot_time"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_schedule_plantimes_on_user_id"
+  end
+
+  create_table "sectors", force: :cascade do |t|
+    t.integer "in_department"
+    t.string "department_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,8 +52,10 @@ ActiveRecord::Schema.define(version: 2021_11_10_072957) do
     t.string "password_digest"
     t.string "role"
     t.string "phone_number"
+    t.integer "sector_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["sector_id"], name: "index_users_on_sector_id"
   end
 
   add_foreign_key "schedule_actual_times", "users"

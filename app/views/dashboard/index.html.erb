@@ -14,15 +14,18 @@
                     <i class="bi bi-box-arrow-right btn btn-danger" id="logout-button" aria-hidden="true"> Logout </i>
                 <%end%>
                 
-                <h1 class='flex-grow-1 text-center' id="header-text" text-align="center">CPF schedule workplan</h1>
+                <div class='flex-grow-1 text-center display-3' id="header-text" text-align="center">CPF schedule workplan</div>
             </div>
         </header>
+
         <% if @current_user.role =="ผู้จัดการ"%>
             <%= render "manager" %>
         <% elsif @current_user.role =="หัวหน้าแผนก"%>
             <%= render "cheif" %>
         <% elsif @current_user.role =="คนงานทั่วไป"%>
             <%= render "worker" %>
+        <% else%>
+            <p>404 Not found <%@current_user.name%></p>
         <% end%>
 
     </body>

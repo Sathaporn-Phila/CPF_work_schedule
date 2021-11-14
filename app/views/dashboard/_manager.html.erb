@@ -7,35 +7,51 @@
     <title> manager </title>
 </head>
 <body>
-    <div class='column'>
-        <p> ชื่อ-นามสกุล : <%=@current_user.name %> </p>
-        <p> แผนก : <%= @current_user.department %> </p>
+    <div class="column">
+        <span class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </span>
+        <span class="display-font"> แผนก : <%= @current_user.department %> </span>
+        <p class="display-font"> จำนวนแผนกที่ดูแล : <%= @current_user.factory %></p>
     </div>
-    <span> จำนวนแผนกที่ดูแล : <%= @current_user.factory %></span>
+
+    
+    <div>
+        <span class="display-font"> วันที่ : <%= DateTime.now()%> </span>
+    </div>
 
     <div>
-        <%= link_to timestamp_path(@current_user) do%>
-            <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check timestamp </i>
-        <%end%>
+    <%# เช็คว่ามี Check in หรือยัง ถ้ามีแล้วเวลาจะกดอีกครั้งจะเป็นcheck out %>
+        <% if @actual_time.where(user_id: @current_user.id).length == 0%>
+            <%= link_to timestamp_path(@current_user) do%>
+                <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check-IN </i>
+            <%end%>
+        <% else %>
+            <%= link_to timestamp_path(@current_user) do%>
+                <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+            <% end %>
+        <% end %>
     </div>
+
 
     <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
         <thead>
             <th>ชื่อ-นามสกุล</th>
             <th>เวลา-เข้า</th>
             <th>เวลา-ออก</th>
-            <th> OT <select name="OT" id="1">
-                    <option value="1">plan 1</option>
-                    <option value="2">plan 2</option> 
-                </select>
-            </th>
+            <th> โรงงาน </th>
         </thead>
         <tbody id="time_object">
             <% @actual_time.each do |row|%>
-                <tr>
-                    <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory).length == 0%>
+                <tr id=<%=User.find(row.user_id).name%>>
+                <%# แสดงคนงานทั้งหมด ที่อยู่ในแผนกและ โรงงานเดียวกับหัวหน้าแผนก %>
+                    <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory).length == 0%>
                         <td><%= User.find(row.user_id).name%></td>
-                        <td><%= row.time_in%></td>
+                        <td backgroundColor="green"><%= row.time_in.strftime("%H:%M:%S")%></td>
+                        <% if row.time_out.nil?%>
+                            <td>#</td>
+                        <% else %>
+                            <td><%= row.time_out.strftime("%H:%M:%S")%></td>
+                        <% end %>
+                        <td><%= User.find(row.user_id).factory%></td>
                     <%end%>
                 </tr>
             <%end%>                       

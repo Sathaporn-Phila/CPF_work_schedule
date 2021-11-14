@@ -6,26 +6,46 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> worker </title>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log("ปฎิทิน")
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth'
+                });
+                calendar.render();
+            });
+
+        </script>
+
     </head>
 
     <body>
-        <span> ชื่อ-นามสกุล : <%=@current_user.name %> </span>
-        <br>
-        <span> แผนก : <%= @current_user.id %> </span>
-        <span>
+        <div class="column">
+            <p class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </p>
+            <p class="display-font"> แผนก : <%= @current_user.department %> </p>
+        </div>
+    
         <div>
-            <%= link_to timestamp_path(@current_user) do%>
-                <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check timestamp </i>
-            <%end%>
+            <span class="display-font"> วันที่ : <%= DateTime.now()%> </span>
         </div>
-        </span>
-        <span>
-        <h2> ปฏิทินเดือน... </h2>
 
-        <!-- รอแก้เป็นปฏิทิน -->
-        <div class="square">
+        <div>
+        <%# เช็คว่ามี Check in หรือยัง ถ้ามีแล้วเวลาจะกดอีกครั้งจะเป็นcheck out %>
+            <% if @actual_time.where(user_id: @current_user.id).length == 0%>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check-IN </i>
+                <%end%>
+            <% else %>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+                <% end %>
+            <% end %>
         </div>
-        <!-- รอแก้เป็นปฏิทิน -->
+        <p></p>
+
+        <div id='calendar'></div>
 
         <!-- นับจำนวนการทำงาน -->
         <div class='column'>

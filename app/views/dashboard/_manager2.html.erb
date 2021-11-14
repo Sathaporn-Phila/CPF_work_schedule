@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> manager </title>
+</head>
+<body>
+    <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-grow-1">
+            <div> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
+            <div> แผนก : <%= @current_user.department %> </div>
+            <div> โรงงาน : <%= @current_user.factory %></div>
+        </div>
+        <div class="flex-grow-1 align-items-center">
+            <%= link_to timestamp_path(@current_user) do%>
+                <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check timestamp </i>
+            <%end%>
+        </div>
+    </div>
+
+    <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
+        <thead>
+            <th>ชื่อ-นามสกุล</th>
+            <th>เวลา-เข้า</th>
+            <th>เวลา-ออก</th>
+            <th> OT <select name="OT" id="1">
+                    <option value="1">plan 1</option>
+                    <option value="2">plan 2</option> 
+                </select>
+            </th>
+        </thead>
+        <tbody id="time_object">
+            <% @actual_time.each do |row|%>
+                <tr>
+                    <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory).length == 0%>
+                        <td><%= User.find(row.user_id).name%></td>
+                        <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                    <%end%>
+                </tr>
+            <%end%>                            
+        </tbody>
+    </table>
+</body>
+</html>
