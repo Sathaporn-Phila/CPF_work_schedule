@@ -1,7 +1,8 @@
 class DashboardController < ApplicationController
-    before_action :get_department_in_factory
     def index
+        @current_user = current_user
         @actual_time = ScheduleActualTime.all
+        @history = History.all
         @shift_code = Shiftcode.all
     end
     def register_new;
@@ -21,26 +22,40 @@ class DashboardController < ApplicationController
                 :time_in=>DateTime.now()
             )
             current_user.schedule_actual_times << @time_object
+            @time_object1 = History.create(
+                :user_id => current_user.id,
+                :time_in=>DateTime.now()
+            )
+            current_user.histories << @time_object1
             ActionCable.server.broadcast(
                 'actual_time_channel',{
                 name: current_user.name,
                 time_in: @time_object.time_in.strftime("%H:%M:%S"),
-                time_out:"-"
+                time_out:"-",
+                department: current_user.department,
+                role: current_user.role,
+                act: "show"
                 }
             )
         else 
             @time_object = ScheduleActualTime.find_by(user_id: current_user.id).update(
                 :time_out=>DateTime.now()
             )
+            @time_object1 = History.find_by(user_id: current_user.id).update(
+                :time_out=>DateTime.now()
+            )
+
             ActionCable.server.broadcast(
                 'actual_time_channel',{
                 name: current_user.name,
                 time_in: ScheduleActualTime.find_by(user_id: current_user.id).time_in.strftime("%H:%M:%S"),
-                time_out: ScheduleActualTime.find_by(user_id: current_user.id).time_out.strftime("%H:%M:%S")
+                time_out: ScheduleActualTime.find_by(user_id: current_user.id).time_out.strftime("%H:%M:%S"),
+                department: current_user.department,
+                role: current_user.role,
+                act: "delete"
                 }
             )
         end 
-        
         redirect_to main_page_path
     end
 
@@ -63,19 +78,5 @@ class DashboardController < ApplicationController
           render 'register_user'
         end
         
-    end
-
-    private
-        def get_department_in_factory # get all of department in each factory
-            @current_user = current_user
-            @department_all = []
-            User.all.each do |i|
-                if (i.factory == current_user.factory) 
-                    unless i.department in department_all
-                        department_all.push(i.department)
-                    end 
-                end
-            end
-            @department_all
-        end 
+    end 
 end

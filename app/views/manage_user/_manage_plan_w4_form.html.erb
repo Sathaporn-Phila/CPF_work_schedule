@@ -43,29 +43,18 @@
         <table class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
             <thead>
                 <th>ชื่อ-นามสกุล</th>
-                <th>เวลา-เข้า</th>
-                <th>เวลา-ออก</th>
-                <!--<th>โรงงาน</th>-->
-                <th>OT check</th>
-                <th>OT time</th>
                 <th>แผนก</th>
+                <th>OT time</th>
+                <th>OT check</th>
             </thead>
             <tbody id="time_object">
                 <% @actual_time.each do |row|%>
                     <tr id=<%= User.find(row.user_id).name%>>
-                        <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานถอนขน").length == 0%>
+                        <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานสินค้าแช่แข็ง").length == 0%>
                             <td><%= User.find(row.user_id).name%></td>
-                            <td><%= row.time_in.strftime("%H:%M:%S")%></td>
-                            <% if row.time_out.nil?%>
-                                <td>#</td>
-                            <% else %>
-                                <td><%= row.time_out.strftime("%H:%M:%S")%></td>
-                            <% end %>
-                            <!--<td><%= User.find(row.user_id).factory%></td>-->
-                            <td><input type="checkbox" name="chk" value= <%row.user_id%> ></td>
-                            <%# <td><%=check_box_tag(":ot_time_#{row.user_id}".to_sym)%>
-                            <td><%=select_tag("ot_time_#{row.user_id}".to_sym,options_for_select(all_time))%></td>
                             <td><%=select_tag("department_#{row.user_id}".to_sym,options_for_select(all_department))%></td>
+                            <td><%=select_tag("ot_time_#{row.user_id}".to_sym,options_for_select(all_time))%></td>
+                            <td><input type="checkbox" name="chk" value= <%row.user_id%> ></td>
                          <%end%>      
                     </tr>
                 <%end%>                       

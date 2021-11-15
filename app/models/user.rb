@@ -4,5 +4,5 @@ class User < ApplicationRecord
     has_many :schedule_plantimes
     has_many :shiftcodes
     # has_many :sector, through: :schedule_actual_times
-    belongs_to :history, optional: true
+    has_many :histories
 end

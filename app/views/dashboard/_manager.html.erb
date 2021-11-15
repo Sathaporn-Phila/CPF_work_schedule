@@ -6,94 +6,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
     <title> manager </title>
+
+    <script type="text/javascript"> 
+        function display_c(){
+            var refresh=1000; // Refresh rate in milli seconds
+            mytime=setTimeout('display_ct()',refresh)
+        }
+
+        function display_ct() {
+            var x = new Date()
+            var x1="วันที่ : "+ x.getDate() + "/"+ (parseInt(x.getMonth(), 10)+1)   + "/" + x.getFullYear(); 
+            x1 = x1 + " เวลา : " +  x.getHours( )+ ":" +  x.getMinutes() + ":" +  x.getSeconds();
+            document.getElementById('ct').innerHTML = x1;
+            display_c();
+        }
+
+    </script>
+
 </head>
-<body>
-    <div class="column">
-        <span class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </span>
-        <p class="display-font"> โรงงาน : <%= @current_user.factory %></p>
-    </div>
 
-    <div>
-        <span class="display-font"> วันที่ : <%= DateTime.now()%> </span>
-    </div>
+<!---------------------------------------------------โปรไฟล์---------------------------------------------------------- -->
 
-    <div>
-    <%# เช็คว่ามี Check in หรือยัง ถ้ามีแล้วเวลาจะกดอีกครั้งจะเป็นcheck out %>
-        <% if @actual_time.where(user_id: @current_user.id).length == 0%>
-            <%= link_to timestamp_path(@current_user) do%>
-                <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check-IN </i>
-            <%end%>
-        <% else %>
-            <%= link_to timestamp_path(@current_user) do%>
-                <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+<body onload=display_ct();>
+
+    <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
+            <div class="display-font"> สถานที่ทำงาน : <%= @current_user.factory %></div>
+            <div class="display-font"> ตำแหน่ง : <%= @current_user.role %> </div>
+        </div>
+
+        <div class="flex-grow-1 align-items-center">
+            <h3 id='ct' class="display-font"></h3>
+        </div>
+
+        <div class="flex-grow-1 align-items-center display-font">
+        <%# เช็คว่ามี Check in หรือยัง ถ้ามีแล้วเวลาจะกดอีกครั้งจะเป็นcheck out %>
+            <% if @actual_time.where(user_id: @current_user.id).length == 0%>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check-IN </i>
+                <%end%>
+            <% else %>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+                <% end %>
             <% end %>
-        <% end %>
+        </div>
+
     </div>
-    <br>
+
+    
 <!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
-    <%# <% @department_all.each do |name| %> 
-        <button class="tablink" onclick="openPage('work1', this, '#FF7B89')" id="defaultOpen">งานถอนขน</button>
-        <!-- <button class="tablink" onclick="openPage('work2', this, '#8A5082')">งานไก่ตกราว</button>
-        <button class="tablink" onclick="openPage('work3', this, '#758EB7')">งานเชือดไก่</button>
-        <button class="tablink" onclick="openPage('work4', this, '#A5CAD2')">งานสินค้าแช่แข็ง</button> -->
-            
-        <div id="work1" class="tabcontent">
-            <h3>งานถอนขน</h3>
-            <table class="table table-striped" border="1" width="50%" cellspacing='0' cellpadding='10'>
-                <thead>
-                    <th>ชื่อ-นามสกุล</th>
-                    <th>เวลา-เข้า</th>
-                    <th>เวลา-ออก</th>
-                    <th> โรงงาน </th>
-                </thead>
-                <tbody id="time_object">
-                    <% @actual_time.each do |row|%>
-                        <tr id=<%=User.find(row.user_id).name%> >
-                    
-                            <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory).length == 0%>
-                                <td><a> <%= User.find(row.user_id).name%> </a></td>
-                                <td class='btn-primary'><%= row.time_in.strftime("%H:%M:%S")%></td>
-                                <% if row.time_out.nil?%>
-                                    <td>#</td>
-                                <% else %>
-                                    <td class='btn-red'><%= row.time_out.strftime("%H:%M:%S")%></td>
-                                <% end %>
-                                <td><%= User.find(row.user_id).factory%></td>
-                            <%end%>
-                        </tr>
-                    <%end%>                       
-                </tbody>
-            </table>
-        </div>
+    <div id="myHeader">
+        <button class="tablink display-font" onclick="openPage('work1', this, '#FF7B89')" id="defaultOpen">งานถอนขน</button>
+        <button class="tablink display-font" onclick="openPage('work2', this, '#8A5082')">งานไก่ตกราว</button>
+        <button class="tablink display-font" onclick="openPage('work3', this, '#758EB7')">งานเชือดไก่</button>
+        <button class="tablink display-font" onclick="openPage('work4', this, '#A5CAD2')">สินค้าแช่แข็ง</button>
+    </div>  
+    <div id="work1" class="tabcontent display-font">
+        <h3>งานถอนขน</h3>
+        <table class="table table-striped table-light display-font" border="1" width="50%" cellspacing='0' cellpadding='10'>
+            <thead>
+                <th>ชื่อ-นามสกุล</th>
+                <th>เวลา-เข้า</th>
+                <th>เวลา-ออก</th>
+                <th>ตำแหน่ง</th>
+                <th>แผนก</th>
+            </thead>
+            <tbody id="งานถอนขน_m">
+                <% @actual_time.each do |row|%>
+                    <tr id=<%=User.find(row.user_id).name%> >                
+                        <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory, department: 'งานถอนขน').length == 0%>
+                            <td><%= User.find(row.user_id).title_name %> <%= User.find(row.user_id).name%></td>
+                            <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                            <% if row.time_out.nil?%>
+                                <td><% %></td>
+                            <% else %>
+                                <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
+                            <% end %>
+                            <td><%= User.find(row.user_id).role%></td>
+                            <td><%= User.find(row.user_id).department%></td>
+                        <%end%>
+                    </tr>
+                <%end%>                       
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="work2" class="tabcontent display-font">
+        <h3>งานไก่ตกราว</h3>
+        <table class="table table-striped table-light display-font" border="1" width="50%" cellspacing='0' cellpadding='10'>
+            <thead>
+                <th>ชื่อ-นามสกุล</th>
+                <th>เวลา-เข้า</th>
+                <th>เวลา-ออก</th>
+                <th>ตำแหน่ง</th>
+                <th>แผนก</th>
+            </thead>
+            <tbody id="งานไก่ตกราว_m">
+                <% @actual_time.each do |row|%>
+                    <tr id=<%=User.find(row.user_id).name%> >
+                
+                        <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory, department: 'งานไก่ตกราว').length == 0%>
+                            <td><%= User.find(row.user_id).title_name %> <%= User.find(row.user_id).name%></td>
+                            <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                            <% if row.time_out.nil?%>
+                                <td><% %></td>
+                            <% else %>
+                                <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
+                            <% end %>
+                            <td><%= User.find(row.user_id).role%></td>
+                            <td><%= User.find(row.user_id).department%></td>
+                        <%end%>
+                    </tr>
+                <%end%>                       
+            </tbody>
+        </table>
+    </div>
 
-        <!-- <div id="work2" class="tabcontent">
-            <h3>งานไก่ตกราว</h3>
-        </div>
+    <div id="work3" class="tabcontent display-font">
+        <h3>งานเชือดไก่</h3>
+        <table class="table table-striped table-light display-font" border="1" width="50%" cellspacing='0' cellpadding='10'>
+            <thead>
+                <th>ชื่อ-นามสกุล</th>
+                <th>เวลา-เข้า</th>
+                <th>เวลา-ออก</th>
+                <th>ตำแหน่ง</th>
+                <th>แผนก</th>
+            </thead>
+            <tbody id="งานเชือดไก่_m">
+                <% @actual_time.each do |row|%>
+                    <tr id=<%=User.find(row.user_id).name%> >
+                
+                        <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory, department: 'งานเชือดไก่').length == 0%>
+                            <td><%= User.find(row.user_id).title_name %> <%= User.find(row.user_id).name%></td>
+                            <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                            <% if row.time_out.nil?%>
+                                <td><% %></td>
+                            <% else %>
+                                <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
+                            <% end %>
+                            <td><%= User.find(row.user_id).role%></td>
+                            <td><%= User.find(row.user_id).department%></td>
+                        <%end%>
+                    </tr>
+                <%end%>                       
+            </tbody>
+        </table>
+    </div>
 
-        <div id="work3" class="tabcontent">
-            <h3>งานเชือดไก่</h3>
-        </div>
+    <div id="work4" class="tabcontent display-font">
+        <h3>งานจัดเก็บและจ่ายสินค้าแช่แข็ง</h3>
+        <table class="table table-striped table-light display-font" border="1" width="50%" cellspacing='0' cellpadding='10'>
+            <thead>
+                <th>ชื่อ-นามสกุล</th>
+                <th>เวลา-เข้า</th>
+                <th>เวลา-ออก</th>
+                <th>ตำแหน่ง</th>
+                <th>แผนก</th>
+            </thead>
+            <tbody id="งานจัดเก็บและจ่ายสินค้าแช่แข็ง_m">
+                <% @actual_time.each do |row|%>
+                    <tr id=<%=User.find(row.user_id).name%> >
+                
+                        <% unless User.where(id:row.user_id,role:'หัวหน้าแผนก',factory:@current_user.factory, department: 'งานจัดเก็บและจ่ายสินค้าแช่แข็ง').length == 0%>
+                            <td><%= User.find(row.user_id).title_name %> <%= User.find(row.user_id).name%></td>
+                            <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                            <% if row.time_out.nil?%>
+                                <td><% %></td>
+                            <% else %>
+                                <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
+                            <% end %>
+                            <td><%= User.find(row.user_id).role%></td>
+                            <td><%= User.find(row.user_id).department%></td>
+                        <%end%>
+                    </tr>
+                <%end%>                       
+            </tbody>
+        </table>
+    </div>
 
-        <div id="work4" class="tabcontent">
-            <h3>งานจัดเก็บและจ่ายสินค้าแช่แข็ง</h3>
-        </div> -->
-            
-        <script>
-            function openPage(pageName,elmnt,color) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].style.backgroundColor = "";
-            }
-            document.getElementById(pageName).style.display = "block";
-            elmnt.style.backgroundColor = color;
-            }
-            document.getElementById("defaultOpen").click();
-        </script>
-    <%# <% end %>
+    <script>
+        function openPage(pageName,elmnt,color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+        }
+        document.getElementById("defaultOpen").click();
+    </script>
+
 </body>
 </html>

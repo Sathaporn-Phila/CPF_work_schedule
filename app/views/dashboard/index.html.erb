@@ -11,10 +11,10 @@
             <div class="d-flex flex-row-reverse align-items-center">
     
                 <%=link_to logout_path do%>
-                    <i class="bi bi-box-arrow-right btn btn-danger" id="logout-button" aria-hidden="true"> Logout </i>
+                    <i class="bi bi-box-arrow-right btn btn-danger display-font" id="logout-button" aria-hidden="true"> Logout </i>
                 <%end%>
                 
-                <div class='flex-grow-1 text-center display-3' id="header-text" text-align="center">CPF schedule workplan</div>
+                <div class='flex-grow-1 text-center display-3 display-font text-light' id="header-text" text-align="center">CPF schedule workplan</div>
             </div>
         </header>
 
@@ -27,8 +27,6 @@
         <% else%>
             <p>404 Not found <%@current_user.name%></p>
         <% end%>
-        <div class="text-center d-grid">
-            <%=link_to "จัดการเวลาทำงาน",manage_user_path,class:"btn btn-info display-font"%>
-        </div>
+        
     </body>
 </html>
