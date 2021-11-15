@@ -7,6 +7,16 @@
     <title> cheif </title>
 </head>
 <body>
+    <header>
+        <div class="d-flex flex-row-reverse align-items-center">
+    
+            <%=link_to logout_path do%>
+                <i class="bi bi-box-arrow-right btn btn-danger" id="logout-button" aria-hidden="true"> Logout </i>
+            <%end%>
+                
+            <div class='flex-grow-1 text-center display-3' id="header-text" text-align="center">CPF schedule workplan</div>
+        </div>
+    </header>
     <div class="d-flex flex-row align-items-center">
         <div class="d-flex flex-column flex-grow-1">
             <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
@@ -20,7 +30,7 @@
             <%end%>
             <% else %>
                 <%= link_to timestamp_path(@current_user) do%>
-                    <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+                    <i class="bi bi-chevron-double-right btn btn-danger" id="logout-button" aria-hidden="true"> Check-OUT </i>
                 <% end %>
             <% end %>
         </div>
@@ -35,6 +45,7 @@
         <div id="work1" class="tabcontent">
             <div class="display-font h3 text-center">
                 จำนวนพนักงาน(ที่มี/ต้องการ)<%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%>/Plan %>
+                <%=render "manage_plan_form"%>
             </div>
         </div>
         <div id="work2" class="tabcontent">
@@ -73,10 +84,6 @@
                 <%end%>
             <%end%> 
         </div>
-        <div class="text-center">
-            <div>ยกเลิก</div>
-            <div>ตกลง</div>
-        </div> 
     </div> 
     <script>
         function openPage(pageName,elmnt,color) {

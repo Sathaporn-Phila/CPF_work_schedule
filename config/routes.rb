@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   post '/register_user',to: 'dashboard#register'
   get '/logout',to: 'dashboard#destroy'
   get '/timestamp/:id',to: 'dashboard#check_timestamp',as: 'timestamp'
-  get '/manage_user',:to 'dashboard#manage_user'
+  get '/manage_user',to: 'manage_user#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

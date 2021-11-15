@@ -1,0 +1,17 @@
+<html>
+    <body>
+    <%=form_tag do%>
+        <%=label_tag("Select all")%>
+        <%=check_box_tag(:select_all)%>
+        <%all_time = []%>
+        <% for hour in (0..15)%>
+            <%for min in (0..1)%>
+                <% all_time.push((hour+min*0.30).to_s)%>
+            <%end%>
+        <%end%>
+        <%=select_tag(:select_all,options_for_select(all_time))%>
+        <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+        <%=submit_tag("ยืนยัน",class:"btn btn-success")%>
+    <%end%>
+</body>
+</html>

@@ -27,6 +27,8 @@
         <% else%>
             <p>404 Not found <%@current_user.name%></p>
         <% end%>
-
+        <div class="text-center d-grid">
+            <%=link_to "จัดการเวลาทำงาน",manage_user_path,class:"btn btn-info display-font"%>
+        </div>
     </body>
 </html>

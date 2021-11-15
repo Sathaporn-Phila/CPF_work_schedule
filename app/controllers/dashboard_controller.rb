@@ -2,19 +2,12 @@ class DashboardController < ApplicationController
     before_action :get_department_in_factory
     def index
         @actual_time = ScheduleActualTime.all
+        @shift_code = Shiftcode.all
     end
     def register_new;
         user = User.new;
         @plan_time = SchedulePlantime.new
-        @shift_code_all = Array.new
-        for i in (0..24) do
-            @start_min = 00
-            for i in (1..3) do
-                @shift_code_all.push(i.to_s+"H"+@start_min.to_s)
-                @start_min+=30
-            end
-        end
-        @shift_code = @shift_code_all
+        @shift_code = Shiftcode.all
     end
     def destroy
         log_out
@@ -55,7 +48,7 @@ class DashboardController < ApplicationController
         @random_number = rand(1000..9999) 
         @user_find = User.find_by(name: params[:name])
         if @user_find.nil? #ถ้าไม่เจอชื่อซ้ำใน database
-            user = User.create!(:employee_id=>random_num,
+            user = User.create!(:employee_id=>@random_number,
                 :title_name=>params[:title_name],
                 :name=>params[:name],
                 :password=>params[:password],
@@ -64,7 +57,7 @@ class DashboardController < ApplicationController
                 :hire_date=>DateTime.now,
                 :employee_income_type=>params[:employee_income_type],
                 :role=>params[:role])
-            @time_code = params[:shift_code]
+            user.shiftcodes << Shiftcode.find_by(code_name:params[:shift_code_select])
             redirect_to main_page_path
         else
           render 'register_user'
@@ -72,16 +65,6 @@ class DashboardController < ApplicationController
         
     end
 
-    def get_all_shift_code
-        @shift_code = []
-        for i in (0..24) do
-            @start_min = 00
-            for i in (1..3) do
-                @shift_code.push(i.to_s+"H"+@start_min.to_s)
-                @start_min+=30
-            end
-        end
-    end
     private
         def get_department_in_factory # get all of department in each factory
             @current_user = current_user

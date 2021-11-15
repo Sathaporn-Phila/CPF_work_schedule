@@ -15,8 +15,6 @@ require("jquery");
 require("@popperjs/core");
 require("bootstrap");
 require('bootstrap-icons/font/bootstrap-icons.css');
-require('calendar.js');
-require('locales-all.js');
 
 import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
