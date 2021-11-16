@@ -70,6 +70,7 @@
                 <th>ชื่อ-นามสกุล</th>
                 <th>เวลา-เข้า</th>
                 <th>เวลา-ออก</th>
+                <th>ช่วงเวลาทำงาน</th>
                 <th>ตำแหน่ง</th>
                 <th>แผนก</th>
             </thead>
@@ -84,6 +85,7 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
+                            <td>...</td>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -100,6 +102,7 @@
                 <th>ชื่อ-นามสกุล</th>
                 <th>เวลา-เข้า</th>
                 <th>เวลา-ออก</th>
+                <th>ช่วงเวลาทำงาน</th>
                 <th>ตำแหน่ง</th>
                 <th>แผนก</th>
             </thead>
@@ -115,6 +118,7 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
+                            <td>...</td>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -131,6 +135,7 @@
                 <th>ชื่อ-นามสกุล</th>
                 <th>เวลา-เข้า</th>
                 <th>เวลา-ออก</th>
+                <th>ช่วงเวลาทำงาน</th>
                 <th>ตำแหน่ง</th>
                 <th>แผนก</th>
             </thead>
@@ -146,6 +151,7 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
+                            <td>...</td>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -162,6 +168,7 @@
                 <th>ชื่อ-นามสกุล</th>
                 <th>เวลา-เข้า</th>
                 <th>เวลา-ออก</th>
+                <th>ช่วงเวลาทำงาน</th>
                 <th>ตำแหน่ง</th>
                 <th>แผนก</th>
             </thead>
@@ -177,6 +184,7 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
+                            <td>...</td>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>

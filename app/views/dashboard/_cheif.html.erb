@@ -78,6 +78,7 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>เวลา-เข้า</th>
                     <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
                     <th>โรงงาน</th>
                     <th>OT</th>
                 </thead>
@@ -92,8 +93,9 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
+                                <td><%=  %></td>
                                 <td><%= User.find(row.user_id).factory%></td>
-                                <td>...</td>
+                                <td><%=  %></td>
                             <%end%>
                         </tr>
                     <%end%>                       
@@ -121,6 +123,7 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>เวลา-เข้า</th>
                     <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
                     <th>โรงงาน</th>
                     <th>OT</th>
                 </thead>
@@ -135,6 +138,7 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
+                                <td>...</td>
                                 <td><%= User.find(row.user_id).factory%></td>
                                 <td>...</td>
                             <%end%>
@@ -164,6 +168,7 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>เวลา-เข้า</th>
                     <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
                     <th>โรงงาน</th>
                     <th>OT</th>
                 </thead>
@@ -178,6 +183,7 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
+                                <td>...</td>
                                 <td><%= User.find(row.user_id).factory%></td>
                                 <td>...</td>
                             <%end%>
@@ -207,6 +213,7 @@
                     <th>ชื่อ-นามสกุล</th>
                     <th>เวลา-เข้า</th>
                     <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
                     <th>โรงงาน</th>
                     <th>OT</th>
                 </thead>
@@ -221,6 +228,7 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
+                                <td>...</td>
                                 <td><%= User.find(row.user_id).factory%></td>
                                 <td>...</td>
                             <%end%>
