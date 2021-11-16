@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> index </title>
+
+    <script type="text/javascript"> 
+        function display_c(){
+            var refresh=1000; // Refresh rate in milli seconds
+            mytime=setTimeout('display_ct()',refresh)
+        }
+
+        function display_ct() {
+            var x = new Date()
+            var x1="วันที่ : "+ x.getDate() + "/"+ (parseInt(x.getMonth(), 10)+1)   + "/" + x.getFullYear(); 
+            x1 = x1 + " เวลา : " +  x.getHours( )+ ":" +  x.getMinutes() + ":" +  x.getSeconds();
+            document.getElementById('ct').innerHTML = x1;
+            display_c();
+        }
+
+    </script>
+</head>
+<body onload=display_ct();>
+    <header>
+        <div class="d-flex flex-row-reverse align-items-center">
+    
+            <%=link_to logout_path do%>
+                <i class="bi bi-box-arrow-right btn btn-danger" id="logout-button" aria-hidden="true"> Logout </i>
+            <%end%>
+                
+            <div class='flex-grow-1 text-center display-3 text-light' id="header-text" text-align="center">CPF schedule workplan</div>
+        </div>
+    </header>
+
+    <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
+            <div class="display-font"> สถานที่ทำงาน : <%= @current_user.factory %></div>
+            <div class="display-font"> ตำแหน่ง : <%= @current_user.role %> </div>
+        </div>
+
+        <div class="flex-grow-1 align-items-center">
+            <span id='ct' class="display-font"></span>
+        </div>
+
+        <span class="flex-grow-1 align-items-center">
+            <% if @actual_time.where(user_id: @current_user.id).length == 0%>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-primary" id="logout-button" aria-hidden="true"> Check-IN </i>
+            <%end%>
+            <% else %>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+                <% end %>
+            <% end %>
+
+        </span>
+    </div>
+    <div id="myHeader">
+        <button class="tablink" onclick="openPage('work1', this, '#5BA8A0')" id="defaultOpen">ถอนขน</button>
+        <button class="tablink" onclick="openPage('work2', this, '#CBE54E')">ไก่ตกราว</button>
+        <button class="tablink" onclick="openPage('work3', this, '#94B447')">เชือดไก่</button>
+        <button class="tablink" onclick="openPage('work4', this, '#5D6E1E')">สินค้าแช่แข็ง</button>
+    </div>
+    <div>
+        <div id="work1" class="tabcontent">
+            <div class="display-font h3 text-center">
+                จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / 10
+                <%=render "manage_plan_w1_form"%>
+            </div>
+        </div>
+        <div id="work2" class="tabcontent">
+             <div class="display-font h3 text-center">
+                จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / 10 
+                <%=render "manage_plan_w2_form"%>
+            </div>
+        </div>
+        <div id="work3" class="tabcontent">
+             <div class="display-font h3 text-center">
+                จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / 10 
+                <%=render "manage_plan_w3_form"%>
+            </div>
+        </div>
+
+        <div id="work4" class="tabcontent">
+             <div class="display-font h3 text-center">
+                จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานสินค้าแช่แข็ง").length%> / 10 
+                <%=render "manage_plan_w4_form"%>
+            </div>
+        </div>
+    </div> 
+    <script>
+        //full page tab
+        function openPage(pageName,elmnt,color) {
+        var i, tabcontent, tablinks,department;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(pageName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+        }
+        document.getElementById("defaultOpen").click();
+
+        window.onscroll = function() {myFunction()};
+        
+        //fixed tab
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+            } else {
+            header.classList.remove("sticky");
+            }
+        }
+    </script>
+
+</body>
+</html>

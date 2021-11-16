@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> index </title>
+    </head>
+    <body>
+        <header>
+            <div class="d-flex flex-row-reverse align-items-center">
+    
+                <%=link_to logout_path do%>
+                    <i class="bi bi-box-arrow-right btn btn-danger display-font" id="logout-button" aria-hidden="true"> Logout </i>
+                <%end%>
+                
+                <div class='flex-grow-1 text-center display-3 display-font text-light' id="header-text" text-align="center">CPF schedule workplan</div>
+            </div>
+        </header>
+
+        <% if @current_user.role =="ผู้จัดการ"%>
+            <%= render "manager" %>
+        <% elsif @current_user.role =="หัวหน้าแผนก"%>
+            <%= render "cheif" %>
+        <% elsif @current_user.role =="คนงานทั่วไป"%>
+            <%= render "worker" %>
+        <% else%>
+            <p>404 Not found <%@current_user.name%></p>
+        <% end%>
+        
+    </body>
+</html>

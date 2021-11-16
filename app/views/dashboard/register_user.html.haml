@@ -1,0 +1,32 @@
+= form_with(model: @user) do |f|
+  - if request.fullpath == "/register" || request.fullpath == "/register_user"
+    .mb-3
+      = f.label "คำนำหน้า", { class: "form-label"}
+      = f.select :title_name,['นาย','นางสาว'], { class: "form-control" }
+  .mb-3
+    = f.label "ชื่อ-นามสกุล", { class: "form-label"}
+    = f.text_field :name, { class: "form-control", placeholder: "ใส่ชื่อและนามสกุล" }
+  .mb-3
+    = f.label "รหัสผ่าน", { class: "form-label"}
+    = f.text_field :password, { class: "form-control", placeholder: "ใส่รหัสผ่าน" }
+  - if request.fullpath == "/register" || request.fullpath == "/register_user"
+    .mb-3 
+      = f.label "สถานที่ทำงาน", { class: "form-label"}
+      = f.select :factory, ['ธุรกิจโรงงานชำแหละไก่ โคราช','กิจการฟาร์มไก่ โคราช','ธุรกิจไก่กระทง โคราช','ธุรกิจโรงงานแปรรูปเนื้อไก่ โคราช(สายรถและ Subcontract)','โรงฟักโชคชัย','ฟาร์มโกรกหว้า 1','ฟาร์มโกรกหว้า 2','ฟาร์มพรหมราช 6'], { class: "form-control"}
+    .mb-3 
+      = f.label "แผนก", { class: "form-label"}
+      = f.select :department, ['งานถอนขน','งานไก่ตกราว','งานเชือดไก่','งานจัดเก็บและจ่ายสินค้าแช่แข็ง'], { class: "form-control"}
+    .mb-3 
+      = f.label "ประเภทรายได้ผู้ทำงาน", { class: "form-label"}
+      = f.select :employee_income_type,['monthly employee','daily employee','outsource employee'], { class: "form-control" }
+    .mb-3
+      = f.label "หน้าที่ผู้ทำงาน", { class: "form-label"}
+      = f.select :role,['ผู้จัดการ','หัวหน้าแผนก','คนงานทั่วไป'], { class: "form-control" }
+    .mb-3
+      = f.label "เวลากะเข้า-ออก", { class: "form-label"}
+      = f.select :shift_code_select,options_for_select(Shiftcode.all.map {|shift_code|[shift_code.code_name]}), { class: "form-control" }
+  .text-center
+    - if request.fullpath == "/login"
+      = submit_tag 'เข้าสู่ระบบ',class: "btn btn-primary"
+    - else
+      = submit_tag 'สมัครสมาชิก',class: "btn btn-primary" 

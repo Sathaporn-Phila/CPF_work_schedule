@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
+        <title> worker </title>
+
+        <script type="text/javascript"> 
+            function display_c(){
+                var refresh=1000; // Refresh rate in milli seconds
+                mytime=setTimeout('display_ct()',refresh)
+            }
+
+            function display_ct() {
+                var x = new Date()
+                var x1="วันที่ : "+ x.getDate() + "/"+ (parseInt(x.getMonth(), 10)+1)   + "/" + x.getFullYear(); 
+                x1 = x1 + " เวลา : " +  x.getHours( )+ ":" +  x.getMinutes() + ":" +  x.getSeconds();
+                document.getElementById('ct').innerHTML = x1;
+                display_c();
+            }
+        </script>
+    </head>
+
+<!---------------------------------------------------โปรไฟล์---------------------------------------------------------- -->
+    <body onload=display_ct();>
+
+    <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
+            <div class="display-font"> สถานที่ทำงาน : <%= @current_user.factory %></div>
+            <div class="display-font"> แผนก : <%= @current_user.department %> </div>
+        </div>
+
+        <div class="flex-grow-1 align-items-center">
+            <span id='ct' class="display-font"></span>
+        </div>
+
+        <div class="flex-grow-1 align-items-center">
+            <% if @actual_time.where(user_id: @current_user.id).length == 0%>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-success" id="logout-button" aria-hidden="true"> Check-IN </i>
+            <%end%>
+            <% else %>
+                <%= link_to timestamp_path(@current_user) do%>
+                    <i class="bi bi-chevron-double-right btn btn-red" id="logout-button" aria-hidden="true"> Check-OUT </i>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+<!-- -------------------------------------------------สถิติการทำงาน---------------------------------------------------------- -->
+
+    <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column flex-grow-1">
+            <div class="display-font"> จำนวนชั่วโมงทั้งหมด : ... </div>
+            <div class="display-font"> จำนวนชั่วโมง OT ทั้งหมด : ...</div>
+        </div>
+    </div>
+
+<!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
+           
+    <div class="display-font">
+        <h3>ตารางบันทึกการทำงาน</h3>
+        <table class="table table-striped table-light display-font" border="1" width="50%" cellspacing='0' cellpadding='10'>
+            <thead>
+                <th>ชื่อ</th>
+                <th>วัน</th>
+                <th>เวลา-เข้า</th>
+                <th>เวลา-ออก</th>
+                <th>จำนวน OT</th>
+            </thead>
+
+            <tbody id="worker_time">
+                <% @history.each do |row|%>
+                    <tr>                                      
+                        <% unless @history.where(user_id: @current_user.id).length == 0 %>
+                            <td><%= User.find(row.user_id).name %></td>
+                            <td><%= DateTime.now().strftime("%d %B %Y") %></td>
+                            <td><%= row.time_in.strftime("%H:%M:%S") %></td>
+                            <% if row.time_out.nil?%>
+                                <td><% %></td>
+                            <% else %>
+                                <td ><%= row.time_out.strftime("%H:%M:%S") %></td>
+                            <% end %>
+                            <td>...</td>
+                        <%end%>
+                    </tr>
+                <%end%>                       
+            </tbody>
+        </table>
+    </div>
+            
+    </body>
+</html>  

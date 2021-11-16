@@ -4,12 +4,23 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 header {
-    background-color: $indigo-400;
+    background-color: #3B5284;
 }
-.btn-primary{
+
+.btn-primary {
     background-color: $orange-500 !important;
 }
-#personal-data{
+
+.btn-red {
+    background-color: $red-600 !important;
+}
+
+#personal-data {
     margin-left: 5%;
+}
+
+.display-font {
+    font-family: 'Itim', cursive;
 }
