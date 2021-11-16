@@ -7,10 +7,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//= require calendar
-//= require locales-all
-//= require_tree
-//= require checkbox .
+//= require checkbox
 require("@popperjs/core");
 require("bootstrap");
 require('bootstrap-icons/font/bootstrap-icons.css');
@@ -21,3 +18,4 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+import "controllers"

@@ -26,9 +26,39 @@
 <body>
     <script>
     </script>
+    <table>
+        <tbody>
+            <td class="block">
+            <label>
+                <input type="checkbox" data-checkbox-select-all-target="checkboxAll" />
+                <span>Select All / Deselect All</span>
+            </label>
+            </td>
+
+            <td class="block">
+            <label>
+                <input type="checkbox" data-checkbox-select-all-target="checkbox" value="1" />
+                <span>Team 1</span>
+            </label>
+            </td>
+
+            <td class="block">
+            <label>
+                <input type="checkbox" data-checkbox-select-all-target="checkbox" checked="checked" value="2" />
+                <span>Team 2</span>
+            </label>
+            </td>
+
+            <td class="block">
+            <label>
+                <input type="checkbox" data-checkbox-select-all-target="checkbox" value="3" />
+                <span>Team 3</span>
+            </label>
+            </td>
+        </tbody>
+        </table>
     <%=form_tag do%>
         <div class="form-check">
-            <input type="button" onclick='selects()' value="Select All"/>
             <input type="button" onclick='deSelect()' value="Deselect"/> 
             <%all_time = []%>
             <% for hour in (0..4)%>
@@ -66,6 +96,7 @@
                             <%# <td><%=check_box_tag(":ot_time_#{row.user_id}".to_sym)%>
                             <td><%=select_tag("ot_time_#{row.user_id}".to_sym,options_for_select(all_time))%></td>
                             <td><%=select_tag("department_#{row.user_id}".to_sym,options_for_select(all_department))%></td>
+
                          <%end%>      
                     </tr>
                 <%end%>                       

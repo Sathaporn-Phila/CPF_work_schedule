@@ -50,7 +50,7 @@
             <tbody id="time_object">
                 <% @actual_time.each do |row|%>
                     <tr id=<%= User.find(row.user_id).name%>>
-                        <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานสินค้าแช่แข็ง").length == 0%>
+                        <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length == 0%>
                             <td><%= User.find(row.user_id).name%></td>
                             <td><%=select_tag("department_#{row.user_id}".to_sym,options_for_select(all_department))%></td>
                             <td><%=select_tag("ot_time_#{row.user_id}".to_sym,options_for_select(all_time))%></td>

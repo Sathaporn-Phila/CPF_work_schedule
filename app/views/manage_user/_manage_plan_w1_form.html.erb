@@ -3,33 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="text/javascript">  
-            function selects(){  
-                var ele=document.getElementsByClassName('chk');  
-                for(var i=0; i<ele.length; i++){  
-                    if(ele[i].type=='checkbox')  
-                        ele[i].checked=true;  
-                }  
-            }  
-            function deSelect(){  
-                var ele=document.getElementsByClassName('chk');  
-                for(var i=0; i<ele.length; i++){  
-                    if(ele[i].type=='checkbox')  
-                        ele[i].checked=false;  
-                      
-                }  
-            }             
-        </script>  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 </head>
 
 <body>
-    <script>
-    </script>
+    <div data-controller="checkbox">
     <%=form_tag do%>
         <div class="form-check">
-            <input type="button" onclick='selects()' value="Select All"/>
-            <input type="button" onclick='deSelect()' value="Deselect"/> 
+            <button type="button" data-action="checkbox#checkAll">Select</button>
+            <button type="button" data-action="checkbox#checkNone">Unselect</button>
             <%all_time = []%>
             <% for hour in (0..4)%>
                 <%for min in (0..1)%>
@@ -52,9 +34,9 @@
                     <tr id=<%= User.find(row.user_id).name%>>
                         <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานถอนขน").length == 0%>
                             <td><%= User.find(row.user_id).name%></td>
-                            <td><%=select_tag("department_#{row.user_id}".to_sym,options_for_select(all_department))%></td>
-                            <td><%=select_tag("ot_time_#{row.user_id}".to_sym,options_for_select(all_time))%></td>
-                            <td><%=check_box_tag("chk_#{row.user_id}".to_sym,{checked:true},false,{:class=>"chk"})%></td>
+                            <td><%=select_tag("department_[]",options_for_select(all_department))%></td>
+                            <td><%=select_tag("ot_time_[]",options_for_select(all_time))%></td>
+                            <td><%=check_box_tag("chk[]",row.user_id)%></td>
                         <%end%>      
                     </tr>
                 <%end%>                       
@@ -64,5 +46,6 @@
         <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
         <%=submit_tag("ยืนยัน",class:"btn btn-success")%>
     <%end%>
+    </div>
 </body>
 </html>

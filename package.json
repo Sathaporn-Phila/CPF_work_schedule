@@ -11,6 +11,8 @@
     "bootstrap-icons": "^1.7.0",
     "fullcalendar": "^5.10.1",
     "jquery": "^3.6.0",
+    "stimulus": "^3.0.1",
+    "stimulus-checkbox-select-all": "^5.0.0",
     "turbolinks": "^5.2.0",
     "webpack": "4.46.0",
     "webpack-cli": "3.3.12"

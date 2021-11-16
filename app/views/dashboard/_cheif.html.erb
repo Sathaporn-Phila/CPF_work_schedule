@@ -35,7 +35,7 @@
         </div>
 
         <div class="flex-grow-1 align-items-center">
-            <span id='ct' class="display-font"></span>
+            <h3 id='ct' class="display-font"></h3>
 
         </div>
 
@@ -62,7 +62,7 @@
     </div>
     <div id="work1" class="tabcontent">
             <div class="display-font h3 text-center">
-                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / Plan 
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / 20 
             </div>
             <%# <% @actual_time.each do |row|%> 
                 <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
@@ -84,7 +84,7 @@
                 <tbody id="งานถอนขน_c">
                     <% @actual_time.each do |row|%>
                         <tr id=<%= User.find(row.user_id).name%>>
-                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานถอนขน").length == 0%>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานถอนขน",factory:@current_user.factory).length == 0%>
                                 <td><%= User.find(row.user_id).name%></td>
                                 <td><%= row.time_in.strftime("%H:%M:%S")%></td>
                                 <% if row.time_out.nil?%>
@@ -106,7 +106,7 @@
 
         <div id="work2" class="tabcontent">
             <div class="display-font h3 text-center">
-                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / Plan
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / 20
             </div>
              <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length == 0%>
@@ -127,7 +127,7 @@
                 <tbody id="งานไก่ตกราว_c">
                     <% @actual_time.each do |row|%>
                         <tr id=<%= User.find(row.user_id).name%>>
-                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department:"งานไก่ตกราว").length == 0%>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department:"งานไก่ตกราว",factory:@current_user.factory).length == 0%>
                                 <td><%= User.find(row.user_id).name%></td>
                                 <td ><%= row.time_in.strftime("%H:%M:%S")%></td>
                                 <% if row.time_out.nil?%>
@@ -149,7 +149,7 @@
 
         <div id="work3" class="tabcontent">
             <div class="display-font h3 text-center">
-                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / Plan
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / 20
             </div>
             <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length == 0%>
@@ -170,7 +170,7 @@
                 <tbody id="งานเชือดไก่_c">
                     <% @actual_time.each do |row|%>
                         <tr id=<%= User.find(row.user_id).name%>>
-                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department:"งานเชือดไก่").length == 0%>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department:"งานเชือดไก่",factory:@current_user.factory).length == 0%>
                                 <td><%= User.find(row.user_id).name%></td>
                                 <td ><%= row.time_in.strftime("%H:%M:%S")%></td>
                                 <% if row.time_out.nil?%>
@@ -192,7 +192,7 @@
 
         <div id="work4" class="tabcontent">
             <div class="display-font h3 text-center">
-                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%> / Plan 
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%> / 20 
             </div>
             <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"สินค้าแช่แข็ง").length == 0%>

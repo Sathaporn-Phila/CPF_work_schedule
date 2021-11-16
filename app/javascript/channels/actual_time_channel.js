@@ -6,9 +6,9 @@ consumer.subscriptions.create({ channel: "ActualTimeChannel", room: "schedule ro
         console.log("Connected to the room!");
     },
     received(data) {
-        if data['role'] == "หัวหน้าแผนก"{
+        if(data['role'] == "หัวหน้าแผนก"){
             var type = '_m'
-        }else if data['role'] == "คนงานทั่วไป"{
+        }else if(data['role'] == "คนงานทั่วไป"){
             var type = "_c"
         }
         const sel = "#" + data['department'] + type;
