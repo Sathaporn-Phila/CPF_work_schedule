@@ -29,13 +29,18 @@
                 <th>OT time</th>
                 <th>OT check</th>
             </thead>
+            <%#all_time.each{|time|[].push([time,row.user_id])}%>
             <tbody id="time_object">
                 <% @actual_time.each do |row|%>
                     <tr class=<%= User.find(row.user_id).name%>>
                         <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานถอนขน").length == 0%>
                             <td><%= User.find(row.user_id).name%></td>
-                            <td><%=select_tag "department_[]",options_for_select(all_department),include_blank:"Move to",class:"department"%></td>
-                            <td><%=select_tag "ot_time_[]",options_for_select(all_time),class:"ot",id:User.find(row.user_id).name%></td>
+                            <%@all_department_with_id=[]%>
+                            <%all_department.map {|department| @all_department_with_id << [department,[department,row.user_id]]}%>
+                            <td><%=select_tag "department_[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
+                            <%@all_time_with_id=[]%>
+                            <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
+                            <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),class:"ot",id:"select_"+row.user_id.to_s%></td>
                             <td><%=check_box_tag "chk[]",row.user_id,false,id:User.find(row.user_id).name,data:{action:'change->checkbox#setStatusSelectTag',target:'checkbox.overtime'}%></td>
                         <%end%>      
                     </tr>

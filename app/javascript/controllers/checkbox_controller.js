@@ -7,6 +7,7 @@
 //   <h1 data-target="hello.output"></h1>
 // </div>
 
+import { variationPlacements } from "@popperjs/core";
 import { Controller } from "stimulus";
 
 export default class extends Controller {
@@ -18,11 +19,13 @@ export default class extends Controller {
   checkAll() {
     this.setAllCheckboxes(true);
     this.setCount();
+    this.select_tag_is_activated(this.all_select_tag,true);
   }
 
   checkNone() {
     this.setAllCheckboxes(false);
     this.setCount();
+    this.select_tag_is_activated(this.all_select_tag,false);
   }
 
   onChecked() {
@@ -31,14 +34,30 @@ export default class extends Controller {
   setOvertime(event){
     this.all_select_tag.forEach((el)=>{
       const select_tag = el;
-      select_tag.value = event.currentTarget.value;
+      if(select_tag.value.includes("[")){
+        select_tag.selectedIndex = event.currentTarget.selectedIndex
+      }
+      else{
+        select_tag.value = event.currentTarget.value
+      }
     })
+  }
+  select_tag_is_activated(tag,checked){
+    if(checked){
+      tag.forEach((el)=>{el.disabled=false})
+    }
+    else{
+      tag.forEach((el)=>{
+        if(el.value.includes("[")){el.disabled=true}
+      })
+    }
   }
   setAllCheckboxes(checked) {
     this.checkboxes.forEach((el) => {
       const checkbox = el;
       if (!checkbox.disabled) {
           checkbox.checked = checked;  
+
       }
     });
   }
@@ -50,24 +69,13 @@ export default class extends Controller {
     }
   }
   setStatusSelectTag(event){
-    const item = event.currentTarget
-    const select_current_tag = new Array(...this.element.querySelector(`select#${item.id}.ot`))
-    this.is_select_tag_enable(select_current_tag,item.checked)
+    var item = event.currentTarget;
+    const bool_checkbox = item.checked;
+    const select_current_tag = new Array(...this.element.querySelectorAll('select#select_'+String(item.value)));
+    this.select_tag_is_activated(select_current_tag,bool_checkbox);
   }
   get selectedCheckboxes() {
     return this.checkboxes.filter((c) => c.checked);
-  }
-  is_select_tag_enable(tag,checkbox_current){
-    const some_tag = tag
-    if(checkbox_current.checked){
-      some_tag.forEach((el)=>{
-        const select_tag = el;
-        
-      })
-    }
-    else{
-      some_tag.disabled = true
-    }
   }
   get checkboxes() {
     return new Array(...this.element.querySelectorAll("input[type=checkbox]"));
@@ -75,5 +83,4 @@ export default class extends Controller {
   get all_select_tag(){
     return new Array(...this.element.querySelectorAll('.ot'))
   }
-
 }
