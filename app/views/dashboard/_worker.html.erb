@@ -38,7 +38,7 @@
         </div>
 
         <div class="flex-grow-1 align-items-center">
-            <% if @actual_time.where(user_id: @current_user.id).length == 0%>
+            <% if @actual_time.where(user_id: @current_user.id).length == 0 %>
                 <%= link_to timestamp_path(@current_user) do%>
                     <i class="bi bi-chevron-double-right btn btn-success" id="logout-button" aria-hidden="true"> Check-IN </i>
             <%end%>
@@ -61,38 +61,42 @@
 
 <!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
            
-    <div class="display-font">
-        <h3>ตารางบันทึกการทำงาน</h3>
-        <table class="table table-striped table-light display-font" border="1" width="50%" cellspacing='0' cellpadding='10'>
+    <h3 class="display-font text-center"> ตารางบันทึกการทำงาน </h3>
+    <div class="content display-font">
+        <table class="table table-striped table-light display-font text-center" border="1" width="50%" cellspacing='0' cellpadding='10'>
             <thead>
                 <th>วันที่</th>
                 <th>เวลา-เข้า</th>
                 <th>เวลา-ออก</th>
+                <th>ช่วงเวลาทำงาน</th>
                 <th>จำนวน OT</th>
             </thead>
 
             <tbody id="worker_time">
                 <% for i in (1..30) %>
-                    <tr >                                      
-                        <td >
-                            <%= i%>
+                    <tr>                                      
+                        <td>
+                            <%= i %>
                         </td>
                         <% unless @history.find_by(user_id: @current_user.id).nil?%>
                             <% if i.to_s == @history.find_by(user_id: @current_user.id).time_in.strftime('%d')%>
-                                <td >
+                                <td>
                                     <%= @history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S")%>
                                 </td>
-                                <td >
+                                <td>
                                     <% unless @history.find_by(user_id: @current_user.id).time_out.nil?%>
                                         <%= @history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S")%>
-                                    <% else %>
-                                        <%= %>
                                     <% end %>
                                 </td>
+                                <td>
+                                    ...
+                                </td>                                
                             <% elsif i < @history.find_by(user_id: @current_user.id).time_in.strftime('%d').to_i %>
-                                <td style="background-color: #DE5B6D" colspan="3" align='center'>
-                                    ขาด
-                                </td>                           
+                                <% for j in (1..4) %>
+                                    <td>
+                                        -
+                                    </td>
+                                <% end %>
                             <% end %>
                         <% end %>
                     </tr>    
