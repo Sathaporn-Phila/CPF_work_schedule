@@ -40,7 +40,7 @@
                             <td><%=select_tag "department_[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
                             <%@all_time_with_id=[]%>
                             <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
-                            <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),class:"ot",id:"select_"+row.user_id.to_s%></td>
+                            <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>
                             <td><%=check_box_tag "chk[]",row.user_id,false,id:User.find(row.user_id).name,data:{action:'change->checkbox#setStatusSelectTag',target:'checkbox.overtime'}%></td>
                         <%end%>      
                     </tr>
