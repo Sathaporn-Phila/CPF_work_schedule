@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Kanit', Arial, Helvetica, sans-serif;
     height: 100%;
     margin: 0;
 }
@@ -11,16 +11,22 @@ html {
 }
 
 ::-webkit-scrollbar {
-    width: 0;                   /* Remove scrollbar space */
-    background: transparent;    /* Optional: just make scrollbar invisible */
+    width: 0;
+    /* Remove scrollbar space */
+    background: transparent;
+    /* Optional: just make scrollbar invisible */
 }
+
+
 /* Optional: show position indicator in red */
+
 ::-webkit-scrollbar-thumb {
     background: #FF0000;
 }
 
-
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: inherit;
 }
 
@@ -49,7 +55,8 @@ html {
     text-align: center;
 }
 
-.container::after, .row::after {
+.container::after,
+.row::after {
     content: "";
     clear: both;
     display: table;
@@ -60,11 +67,13 @@ html {
 }
 
 .fixedbutton {
-    position: fixed; 
-    bottom: 20px; 
+    position: fixed;
+    bottom: 20px;
 }
 
+
 /* ==============full page tab=============== */
+
 .tablink {
     background-color: #555;
     color: white;
@@ -79,26 +88,39 @@ html {
     border-left-color: black;
     border-right-color: black;
     border-top-color: black;
-  }
-  
+}
+
 .tablink:hover {
     background-color: #777;
-  }
-  
+}
+
 .tabcontent {
     color: white;
     display: none;
     padding: 100px 20px;
     height: 100%;
-  }
-  
-  #work1 {background-color: #5BA8A0; }
-  #work2 {background-color: #CBE54E; }
-  #work3 {background-color: #94B447; }
-  #work4 {background-color: #5D6E1E; }
- 
+}
+
+#work1 {
+    background-color: #5BA8A0;
+}
+
+#work2 {
+    background-color: #CBE54E;
+}
+
+#work3 {
+    background-color: #94B447;
+}
+
+#work4 {
+    background-color: #5D6E1E;
+}
+
+
 /* ==============Collapse side panel=============== */
-.sidepanel  {
+
+.sidepanel {
     width: 0;
     position: fixed;
     z-index: 1;
@@ -109,54 +131,56 @@ html {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-  }
-  
-  .sidepanel a {
+}
+
+.sidepanel a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
     color: #818181;
     display: block;
     transition: 0.3s;
-  }
-  
-  .sidepanel a:hover {
+}
+
+.sidepanel a:hover {
     color: #f1f1f1;
-  }
-  
-  .sidepanel .closebtn {
+}
+
+.sidepanel .closebtn {
     position: absolute;
     top: 0;
     right: 25px;
     font-size: 36px;
-  }
-  
-  .openbtn {
+}
+
+.openbtn {
     font-size: 20px;
     cursor: pointer;
     background-color: #111;
     color: white;
     padding: 10px 15px;
     border: none;
-  }
-  
-  .openbtn:hover {
-    background-color:#444;
-  }
+}
 
-  /* ==============fixed tab=============== */
-  .sticky {
+.openbtn:hover {
+    background-color: #444;
+}
+
+
+/* ==============fixed tab=============== */
+
+.sticky {
     position: fixed;
     top: 0;
     width: 100%
-  }
-  
-  .sticky + .content {
-    padding-top: 102px;
-  }
+}
 
-  .content {
+.sticky+.content {
+    padding-top: 102px;
+}
+
+.content {
     color: white;
     padding: 10px 20px;
     height: 100%;
-  }
+}

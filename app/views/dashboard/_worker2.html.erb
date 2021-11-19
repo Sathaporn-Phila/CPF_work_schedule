@@ -4,12 +4,12 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
         <!-- font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;300&display=swap" rel="stylesheet">
-        
-        <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
+
         <title> worker </title>
 
         <script type="text/javascript"> 
@@ -69,16 +69,6 @@
          
     <h3 class="display-font text-center"> ตารางบันทึกการทำงาน </h3>
     <div class="content display-font">
-        <%# <table class="table table-striped table-light display-font text-center" border="1" width="50%" cellspacing='0' cellpadding='10'>
-            <thead>
-                <th>วันที่</th>
-                <th>เวลา-เข้า</th>
-                <th>เวลา-ออก</th>
-                <th>ช่วงเวลาทำงาน</th>
-                <th>จำนวน OT</th>
-            </thead>
-
-            <tbody id="worker_time"> %>
 
             <%# event_do = [{
                 title: 'Event1',
@@ -87,43 +77,31 @@
                 textColor: 'black'
                 }] %>
 
-            <%event_do = []%>
-                <% for i in (1..30) %>
-                    <tr>                                      
-                        <td>
-                            <%= i %>
-                        </td>
-                        <% unless @history.find_by(user_id: @current_user.id).nil?%>
-                            <% if i.to_s == @history.find_by(user_id: @current_user.id).time_in.strftime('%d')%>
-                                <td>
-                                    <%= @history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S")%>
-                                </td>
-                                <td>
-                                    <% unless @history.find_by(user_id: @current_user.id).time_out.nil?%>
-                                        <%= @history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S")%>
-                                    <% end %>
-                                </td>
-                                <td>
-                                    ...
-                                </td>                                
-                            <% elsif i < @history.find_by(user_id: @current_user.id).time_in.strftime('%d').to_i %>
-                                <% for j in (1..4) %>
-                                    <td>
-                                        -
-                                    </td>
+            <%@event_do = []%>
+                <% for i in (1..31) %>
+                    <% unless @history.find_by(user_id: @current_user.id).nil?%>
+                        <% if i.to_s == @history.find_by(user_id: @current_user.id).time_in.strftime('%d')%>
+                                <% @event_do.push({
+                                                title: @history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S"),
+                                                start: @history.find_by(user_id: @current_user.id).time_in.strftime("%Y-%m-%C"),
+                                                color: 'green',
+                                                textColor: 'black'
+                                                })%>
+                                <% unless @history.find_by(user_id: @current_user.id).time_out.nil?%>
+                                    <% @event_do.push({
+                                                    title: @history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S"),
+                                                    start: @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%C"),
+                                                    color: 'red',
+                                                    textColor: 'black'
+                                                    })%>
                                 <% end %>
-                            <% end %>
                         <% end %>
-                    <%# </tr>     %>
-                <% end %>                  
-            <%# </tbody>
-        </table> %>
-
-        <div class= "flex" data-controller="calender">
-        <div id="calendar"></div>
-
+                    <% end %>  
+                <% end %>
+        <div class= "flex" data-controller="calender" >
+            <div id="calendar" ></div>
+        </div>
     </div> 
-    </div>
             
     </body>
 </html>  

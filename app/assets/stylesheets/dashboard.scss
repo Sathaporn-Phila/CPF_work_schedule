@@ -4,13 +4,14 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
-@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100;300&display=swap');
 header {
     background-color: #3B5284;
 }
 
 .btn-primary {
-    background-color: $orange-500 !important;
+    background-color: $green-500 !important;
 }
 
 .btn-red {
@@ -22,5 +23,5 @@ header {
 }
 
 .display-font {
-    font-family: 'Itim', cursive;
+    font-family: 'Kanit', cursive;
 }

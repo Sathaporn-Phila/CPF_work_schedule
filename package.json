@@ -2,6 +2,7 @@
   "name": "cpf-attendence",
   "private": true,
   "dependencies": {
+    "@fullcalendar/bootstrap": "^5.10.1",
     "@fullcalendar/core": "^5.10.1",
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/list": "^5.10.1",

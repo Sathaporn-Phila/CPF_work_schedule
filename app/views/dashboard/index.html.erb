@@ -4,6 +4,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;300&display=swap" rel="stylesheet">
+
         <title> index </title>
     </head>
     <body>
@@ -23,7 +28,7 @@
         <% elsif @current_user.role =="หัวหน้าแผนก"%>
             <%= render "cheif" %>
         <% elsif @current_user.role =="คนงานทั่วไป"%>
-            <%= render "worker" %>
+            <%= render "worker2" %>
         <% else%>
             <p>404 Not found <%@current_user.name%></p>
         <% end%>

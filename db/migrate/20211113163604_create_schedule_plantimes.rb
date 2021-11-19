@@ -4,7 +4,7 @@ class CreateSchedulePlantimes < ActiveRecord::Migration[6.1]
       t.string :shift_code
       t.datetime :time_in
       t.datetime :time_out
-      t.float :ot_time
+      t.datetime :ot_time
       t.references :user
       t.timestamps
     end

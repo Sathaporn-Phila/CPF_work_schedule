@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
         @current_user = current_user
         @actual_time = ScheduleActualTime.all
         @history = History.all
-        @plan_all = SchedulePlantime.all
+        @plantime = SchedulePlantime.all
         @shift_code = Shiftcode.all
     end
     def register_new;
@@ -39,8 +39,11 @@ class DashboardController < ApplicationController
                 }
             )
         else 
-            @time_object = ScheduleActualTime.find_by(user_id: current_user.id).update(
-                :time_out=>DateTime.now()
+            @time_object = ScheduleActualTime.find_by(user_id: current_user.id)
+            @actual_ot = (Time.now() - @time_object.time_in.hour.ago - @time_object.time_in.min.to_i.ago - @time_object.sec.to_i.ago)/3600
+            # @actual_ot = DateTime.now() - @time_object.time_in.hour.to_i.hours - @time_object.time_in.min.to_i.minute - @time_object.sec.to_i.second 
+            @time_object.update_all(
+                :time_out=>DateTime.now(),ot_time:@actual_ot
             )
             @time_object1 = History.find_by(user_id: current_user.id).update(
                 :time_out=>DateTime.now()

@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
     t.string "shift_code"
     t.datetime "time_in"
     t.datetime "time_out"
-    t.float "ot_time"
+    t.datetime "ot_time"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

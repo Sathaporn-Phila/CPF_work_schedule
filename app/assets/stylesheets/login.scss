@@ -10,10 +10,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: white;
+    border-radius: 25px;
 }
-.cpf-image{
-    width:50%;
-    height:50%;
+
+.cpf-image {
+    width: 50%;
+    height: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;

@@ -17,13 +17,13 @@ class ManageUserController < ApplicationController
             @ot_time = Time.parse(@ot_time)
             new_shift_time = DateTime.now().change(hour:shifttime.start_in.hour,min:shifttime.start_in.min)
             if  DateTime.now() < new_shift_time#plan ก่อนเวลาเข้างาน
-                @new_plan_time = SchedulePlantime.create(shift_code:shifttime.code_name,time_in:new_shift_time,time_out:new_shift_time+@ot_time.hour.to_i.hours+9.hours+@ot_time.min.to_i.minute,ot_time:@ot_time..hour+@ot_time.min/60)
+                @new_plan_time = SchedulePlantime.create(shift_code:shifttime.code_name,time_in:new_shift_time,time_out:new_shift_time+@ot_time.hour.to_i.hours+9.hours+@ot_time.min.to_i.minute,ot_time:@ot_time)
             else#plan หลังเข้างาน
-                @new_plan_time = SchedulePlantime.create(shift_code:shifttime.code_name,time_in:new_shift_time+1.days,time_out:new_shift_time+@ot_time.hour.to_i.hours+1.days+9.hours+@ot_time.min.to_i.minute,ot_time:@ot_time.hour+@ot_time.min/60)
+                @new_plan_time = SchedulePlantime.create(shift_code:shifttime.code_name,time_in:new_shift_time+1.days,time_out:new_shift_time+@ot_time.hour.to_i.hours+1.days+9.hours+@ot_time.min.to_i.minute,ot_time:@ot_time)
             end
             user.schedule_plantimes << @new_plan_time
         end
-        #redirect_to manage_user_path
+        redirect_to manage_user_path
     end
     def create_array_from_object(array_string)
         item = array_string.split(",")
