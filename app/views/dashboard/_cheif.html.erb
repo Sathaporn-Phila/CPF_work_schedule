@@ -62,7 +62,7 @@
     </div>
     <div id="work1" class="tabcontent">
             <div class="display-font h3 text-center">
-                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / 20 
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plan_all.length%> 
             </div>
             <%# <% @actual_time.each do |row|%> 
                 <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 

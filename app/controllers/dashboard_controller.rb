@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
         @current_user = current_user
         @actual_time = ScheduleActualTime.all
         @history = History.all
+        @plan_all = SchedulePlantime.all
         @shift_code = Shiftcode.all
     end
     def register_new;
