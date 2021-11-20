@@ -40,9 +40,10 @@ class DashboardController < ApplicationController
             )
         else 
             @time_object = ScheduleActualTime.find_by(user_id: current_user.id)
-            @actual_ot = (Time.now() - @time_object.time_in.hour.ago - @time_object.time_in.min.to_i.ago - @time_object.sec.to_i.ago)/3600
+            @shiftcode_time_out = User.find_by(id: current_user.id).shiftcodes.last.end_in
+            @actual_ot = (Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)/3600
             # @actual_ot = DateTime.now() - @time_object.time_in.hour.to_i.hours - @time_object.time_in.min.to_i.minute - @time_object.sec.to_i.second 
-            @time_object.update_all(
+            @time_object.update(
                 :time_out=>DateTime.now(),ot_time:@actual_ot
             )
             @time_object1 = History.find_by(user_id: current_user.id).update(

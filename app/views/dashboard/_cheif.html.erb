@@ -102,8 +102,9 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
+                                <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
                                 <td><%= User.find(row.user_id).factory%></td>
-                                <% unless User.find(row.user_id).schedule_plantimes.length == 0 %>
+                                <% unless User.find(row.user_id).schedule_actual_times.length == 0 %>
                                     <%unless row.ot_time.nil?%>
                                         <td><%=row.ot_time%></td>
                                     <%end%>
@@ -222,7 +223,7 @@
             <div class="display-font h3 text-center">
                 <div>
                 <button type="button">Plan</button>
-                <button typr="button">Actual</button>
+                <button type="button">Actual</button>
                 </div>
                 <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%> / 20</div> 
             </div>
@@ -270,7 +271,7 @@
         <div class="display-font h3 text-center">
                 <div>
                 <button type="button">Plan</button>
-                <button type="button">Actual</button>
+                <button type="button" onclick="openPage('work1', this, '#5BA8A0')">Actual</button>
                 </div>
                 <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%> 
             </div>
@@ -303,7 +304,7 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
-                                <td><%=  %></td>
+                                <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
                                 <td><%= User.find(row.user_id).factory%></td>
                                 <% unless User.find(row.user_id).schedule_plantimes.length == 0 %>
                                     <%unless row.ot_time.nil?%>
