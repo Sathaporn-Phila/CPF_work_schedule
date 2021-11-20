@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
     t.datetime "time_in"
     t.datetime "time_out"
     t.integer "user_id", null: false
-    t.float "ot_time"
+    t.datetime "ot_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_histories_on_user_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
     t.datetime "time_in"
     t.datetime "time_out"
     t.integer "user_id", null: false
-    t.float "ot_time"
+    t.datetime "ot_time"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_schedule_actual_times_on_user_id"

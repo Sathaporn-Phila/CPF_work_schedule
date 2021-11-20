@@ -82,22 +82,23 @@
                     <% unless @history.find_by(user_id: @current_user.id).nil?%>
                         <% if i.to_s == @history.find_by(user_id: @current_user.id).time_in.strftime('%d')%>
                                 <% @event_do.push({
-                                                title: @history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S"),
-                                                start: @history.find_by(user_id: @current_user.id).time_in.strftime("%Y-%m-%C"),
-                                                color: 'green',
-                                                textColor: 'black'
+                                                "title": @history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S"),
+                                                "start": @history.find_by(user_id: @current_user.id).time_in.strftime("%Y-%m-%C"),
+                                                "color": 'green',
+                                                "textColor": 'black'
                                                 })%>
                                 <% unless @history.find_by(user_id: @current_user.id).time_out.nil?%>
                                     <% @event_do.push({
-                                                    title: @history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S"),
-                                                    start: @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%C"),
-                                                    color: 'red',
-                                                    textColor: 'black'
+                                                    "title": @history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S"),
+                                                    "start": @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%C"),
+                                                    "color": 'red',
+                                                    "textColor": 'black'
                                                     })%>
                                 <% end %>
                         <% end %>
                     <% end %>  
                 <% end %>
+                <%File.write("C:/Users/User/Desktop/CPF/app/assets/javascript/events.json", @event_do)%>
         <div class= "flex" data-controller="calender" >
             <div id="calendar" ></div>
         </div>

@@ -71,7 +71,9 @@
                 <button onclick="openPage('plan1', this, '#5BA8A0')">Plan</button>
                 <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%> 
+                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%>
+                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code,:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
+
             </div>
             <%# <% @actual_time.each do |row|%> 
                 <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
@@ -102,11 +104,15 @@
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
-                                <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
+                                <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                    <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
+                                <% else%>
+                                    <td><%= %></td>
+                                <%end%>
                                 <td><%= User.find(row.user_id).factory%></td>
                                 <% unless User.find(row.user_id).schedule_actual_times.length == 0 %>
                                     <%unless row.ot_time.nil?%>
-                                        <td><%=row.ot_time%></td>
+                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
                                     <%end%>
                                 <%else%>
                                     <td>-</td>

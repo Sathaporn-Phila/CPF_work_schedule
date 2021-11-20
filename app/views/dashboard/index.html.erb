@@ -28,7 +28,7 @@
         <% elsif @current_user.role =="หัวหน้าแผนก"%>
             <%= render "cheif" %>
         <% elsif @current_user.role =="คนงานทั่วไป"%>
-            <%= render "worker2" %>
+            <%= render "worker1" %>
         <% else%>
             <p>404 Not found <%@current_user.name%></p>
         <% end%>

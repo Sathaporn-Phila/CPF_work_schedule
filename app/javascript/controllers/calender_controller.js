@@ -12,34 +12,19 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+
 export default class extends Controller {
-    static targets = ["event_do"]
     connect() {
         var calendarEl = document.querySelector('#calendar');
         this.calendar = new Calendar(calendarEl, {
             plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
             initialView: 'dayGridMonth',
             headerToolbar: {
-                left: 'prev,next today',
+                left: 'prev,next',
                 center: 'title',
-                right: 'dayGridMonth,timeGridWeek,listWeek'
+                right: 'today'
             },
-            events: [{
-                title: "เข้างาน",
-                color: "green",
-                start: "2021-11-19",
-                textColor: "black"
-            }, {
-                title: "ออกงาน",
-                color: "red",
-                start: "2021-11-19",
-                textColor: "black"
-            }, {
-                title: "OT",
-                color: "orange",
-                start: "2021-11-19",
-                textColor: "black"
-            }]
+            events: [{ "title": "เวลาเข้า : 17:13:32", "start": "2021-11-20", "color": "green", "textColor": "black" }, { "title": "เวลาออก : 17:13:34", "start": "2021-11-20", "color": "red", "textColor": "black" }, { "title": "OT : 2.22", "start": "2021-11-20", "color": "orange", "textColor": "black" }]
         });
         this.calendar.render()
     }

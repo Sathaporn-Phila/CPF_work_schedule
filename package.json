@@ -1,5 +1,5 @@
 {
-  "name": "cpf-attendence",
+  "name": "cpf-attendance",
   "private": true,
   "dependencies": {
     "@fullcalendar/bootstrap": "^5.10.1",
@@ -14,8 +14,10 @@
     "@rails/webpacker": "5.4.3",
     "bootstrap": "^5.1.3",
     "bootstrap-icons": "^1.7.0",
+    "browserify-fs": "^1.0.0",
     "fullcalendar": "^5.10.1",
     "jquery": "^3.6.0",
+    "load-json-file": "^7.0.1",
     "stimulus": "^3.0.1",
     "stimulus-checkbox-select-all": "^5.0.0",
     "turbolinks": "^5.2.0",
@@ -25,5 +27,24 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "3"
-  }
+  },
+  "description": "ก่อน clone รัน\r 1.rails assets:precompile\r 2.rails db:migrate\r 3.bundle install\r 4.rails s",
+  "main": "babel.config.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sathaporn-Phila/CPF_work_schedule.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sathaporn-Phila/CPF_work_schedule/issues"
+  },
+  "homepage": "https://github.com/Sathaporn-Phila/CPF_work_schedule#readme"
 }

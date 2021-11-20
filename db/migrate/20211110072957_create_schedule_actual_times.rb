@@ -5,7 +5,7 @@ class CreateScheduleActualTimes < ActiveRecord::Migration[6.1]
       t.datetime :time_in
       t.datetime :time_out
       t.references :user, null: false, foreign_key: true
-      t.float :ot_time
+      t.datetime :ot_time
       t.timestamps
     end
   end

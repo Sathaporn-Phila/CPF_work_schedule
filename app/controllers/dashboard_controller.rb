@@ -40,16 +40,33 @@ class DashboardController < ApplicationController
             )
         else 
             @time_object = ScheduleActualTime.find_by(user_id: current_user.id)
-            @shiftcode_time_out = User.find_by(id: current_user.id).shiftcodes.last.end_in
-            @actual_ot = (Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)/3600
-            # @actual_ot = DateTime.now() - @time_object.time_in.hour.to_i.hours - @time_object.time_in.min.to_i.minute - @time_object.sec.to_i.second 
-            @time_object.update(
-                :time_out=>DateTime.now(),ot_time:@actual_ot
-            )
-            @time_object1 = History.find_by(user_id: current_user.id).update(
-                :time_out=>DateTime.now()
-            )
-
+            if User.find_by(id: current_user.id).shiftcodes.length > 0
+                @shiftcode_time_out = User.find_by(id: current_user.id).shiftcodes.last.end_in
+                # @actual_ot = (Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)
+                @actual_ot = Time.at((Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)).utc.strftime("%H:%M:%S")
+                # @actual_ot = DateTime.now() - @time_object.time_in.hour.to_i.hours - @time_object.time_in.min.to_i.minute - @time_object.sec.to_i.second 
+                @time_object.update(
+                    :time_out=>DateTime.now(),ot_time:@actual_ot
+                )
+                @time_object1 = History.find_by(user_id: current_user.id).update(
+                    :time_out=>DateTime.now()
+                )
+            else
+                @time_object.update(
+                    :time_out=>DateTime.now()
+                )
+                unless History.find_by(user_id: current_user.id).nil?
+                    @time_object1 = History.find_by(user_id: current_user.id).update(
+                        :time_out=>DateTime.now()
+                    )
+                else
+                    @time_object1 = History.create(
+                        :user_id => current_user.id,
+                        :time_in=>DateTime.now()
+                    )
+                    current_user.histories << @time_object1
+                end
+            end
             ActionCable.server.broadcast(
                 'actual_time_channel',{
                 name: current_user.name,
