@@ -94,7 +94,8 @@ class DashboardController < ApplicationController
                 :hire_date=>DateTime.now,
                 :employee_income_type=>params[:employee_income_type],
                 :role=>params[:role])
-            user.shiftcodes << Shiftcode.find_by(code_name:params[:shift_code_select])
+            @new_shift_code = Shiftcode.find_by(code_name:params[:shift_code_select])
+            user.shiftcodes << @new_shift_code.dup
             redirect_to main_page_path
         else
           render 'register_user'

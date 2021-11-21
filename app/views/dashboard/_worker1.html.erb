@@ -68,41 +68,32 @@
 <!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
          
     <h3 class="display-font text-center"> ตารางบันทึกการทำงาน </h3>
-    <div class="content display-font">
-
-            <%# event_do = [{
-                title: 'Event1',
-                start: '2011-04-04',
-                color: 'red, green',
-                textColor: 'black'
-                }] %>
-
-        <%@event_do = []%>
+    <%@event_do = []%>
         
         <% @history.each do |u|%>
             <% if u.user_id == @current_user.id%>
                 <% @event_do.push({
-                                title: "เวลาเข้า : "+@history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S"),
+                                title: 'เวลาเข้า : '+@history.find_by(user_id: @current_user.id).time_in.strftime("%H:%M:%S"),
                                 start: @history.find_by(user_id: @current_user.id).time_in.strftime("%Y-%m-%C"),
-                                color: "green",
-                                textColor: "black"
+                                color: 'green',
+                                textColor: 'black'
                                 })%>
                 <% unless u.time_out.nil?%>
                     <% @event_do.push({
-                                    title: "เวลาออก : "+@history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S"),
+                                    title: 'เวลาออก : '+@history.find_by(user_id: @current_user.id).time_out.strftime("%H:%M:%S"),
                                     start: @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%C"),
-                                    color: "red",
-                                    textColor: "black"
+                                    color: 'red',
+                                    textColor: 'black'
                                     })%>
                 <% end %>
                 <% unless @actual_time.find_by(user_id: @current_user.id).ot_time.nil? %>
                     <% @event_do.push({
-                                    title: "OT : " + @actual_time.find_by(user_id: @current_user.id).ot_time.to_str,
+                                    title: 'OT : ' + @actual_time.find_by(user_id: @current_user.id).ot_time.to_s,
                                     start: @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%C"),
-                                    color: "orange",
-                                    textColor: "black"
+                                    color: 'orange',
+                                    textColor: 'black'
                                     })%>
-                <% end %>%>
+                <% end %>
             <% end %>
         <% end %>
         <%File.open("C:/Users/User/Desktop/CPF/app/javascript/controllers/events.json", "w") do |f|%>
