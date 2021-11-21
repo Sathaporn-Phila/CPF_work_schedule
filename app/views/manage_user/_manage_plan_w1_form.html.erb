@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +26,6 @@
             <%all_department = ['งานถอนขน','งานไก่ตกราว','งานเชือดไก่','งานสินค้าแช่แข็ง']%>
             <%=select_tag :ot_time,options_for_select(all_time),class:"ot",data:{action:"checkbox#setOvertime"}%>
         </div>
-
         <table id="work1" class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
             <thead>
                 <th>ชื่อ-นามสกุล</th>
@@ -41,7 +41,7 @@
                             <td><%= User.find(row.user_id).name%></td>
                             <%@all_department_with_id=[]%>
                             <%all_department.map {|department| @all_department_with_id << [department,[department,row.user_id]]}%>
-                            <td><%=select_tag "department_[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
+                            <td><%=select_tag "department[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
                             <%@all_time_with_id=[]%>
                             <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
                             <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>

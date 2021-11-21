@@ -5,6 +5,7 @@ class ManageUserController < ApplicationController
     end
     def manage_worker
         self.set_plan(params["ot_time_select"])
+        self.set_department(params['department'])
     end
     def set_plan(plan_all)
         plan_all.each do |item|
@@ -25,6 +26,20 @@ class ManageUserController < ApplicationController
         end
         redirect_to manage_user_path
     end
+
+    def set_department(department_all)
+        department_all.each do |department_each|
+            department_each = create_array_from_object(department_each)
+            @department_plan = department_each[0]
+            @id_user_d = department_each[1]
+            @user = User.find(@id_user_d)
+            unless (@user.department == @department_plan)
+                
+                User.find(@id_user_d).update(department: @department_plan.delete('\\"'))
+            end
+        end
+    end
+
     def create_array_from_object(array_string)
         item = array_string.split(",")
         for value in item do

@@ -58,22 +58,30 @@
         </span>
     </div>
     
-<!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
-    <div id="myHeader">
-        <button class="tablink" onclick="openPage('work1', this, '#5BA8A0')" id="defaultOpen">ถอนขน</button>
-        <button class="tablink" onclick="openPage('work2', this, '#CBE54E')">ไก่ตกราว</button>
-        <button class="tablink" onclick="openPage('work3', this, '#94B447')">เชือดไก่</button>
-        <button class="tablink" onclick="openPage('work4', this, '#5D6E1E')">สินค้าแช่แข็ง</button>
+    <!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
+    <div id="myHeader" data-controller="shiftcode">
+        <%= content_tag :div, nil, data: {controller: "shiftcode" ,shiftcode_pagename_value: "งานถอนขน"} do %>
+            <button class="tablink" onclick="openPage('งานถอนขน_p', this, '#5BA8A0')" data-action="shiftcode#set_table_from_page" id="defaultOpen">ถอนขน</button>
+        <% end %>
+        <%= content_tag :div, nil, data: {controller: "shiftcode" ,shiftcode_pagename_value: "งานไก่ตกราว"} do %>
+        <%# <button class="tablink" onclick="openPage('งานถอนขน_p', this, '#5BA8A0')" data-shiftcode-pagename-value="งานถอนขน" data-action="shiftcode#set_table_from_page" id="defaultOpen">ถอนขน</button> %>
+            <button class="tablink" onclick="openPage('งานไก่ตกราว_p', this, '#CBE54E')"data-shiftcode-pagename-value="งานไก่ตกราว"data-action="shiftcode#set_table_from_page">ไก่ตกราว</button>
+        <%end%>
+        <%= content_tag :div, nil, data: {controller: "shiftcode" ,shiftcode_pagename_value: "งานเชือดไก่"} do %>
+            <button class="tablink" onclick="openPage('งานเชือดไก่_p', this, '#94B447')"data-shiftcode-pagename-value="งานเชือดไก่"data-action="shiftcode#set_table_from_page">เชือดไก่</button>
+        <%end%>
+        <%= content_tag :div, nil, data: {controller: "shiftcode" ,shiftcode_pagename_value: "งานจัดเก็บและจ่ายสินค้าแช่แข็ง"} do %>
+            <button class="tablink" onclick="openPage('งานจัดเก็บและจ่ายสินค้าแช่แข็ง_p', this, '#5D6E1E')" data-shiftcode-pagename="งานจัดเก็บและจ่ายสินค้าแช่แข็ง"data-action="shiftcode#set_table_from_page">สินค้าแช่แข็ง</button>
+        <%end%>
     </div>
-    <div id="work1" class="tabcontent">
+    <div id="งานถอนขน_p" class="tabcontent">
             <div class="display-font h3 text-center">
                 <div>
-                <button onclick="openPage('plan1', this, '#5BA8A0')">Plan</button>
-                <button type="button">Actual</button>
+                    <button onclick="openPage('plan1', this, '#5BA8A0')">Plan</button>
+                    <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%>
-                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code,:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
-
+                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%></div>
+                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
             </div>
             <%# <% @actual_time.each do |row|%> 
                 <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
@@ -106,9 +114,9 @@
                                 <% end %>
                                 <%if User.find(row.user_id).shiftcodes.length > 0%>
                                     <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
-                                    <td class=<%@code_name%>><%=@code_name%></td>
+                                    <td class=<%="time_"+@code_name%>><%=@code_name%></td>
                                 <% else%>
-                                    <td><%= %></td>
+                                    <td>#</td>
                                 <%end%>
                                 <td><%= User.find(row.user_id).factory%></td>
                                 <% unless User.find(row.user_id).schedule_actual_times.length == 0 %>
@@ -116,7 +124,7 @@
                                         <td><%=row.ot_time.strftime("%H:%M")%></td>
                                     <%end%>
                                 <%else%>
-                                    <td>-</td>
+                                    <td>#</td>
                                 <% end %>
                             <%end%>
                         </tr>
@@ -128,13 +136,14 @@
             </div> 
         </div>
     </div>
-        <div id="work2" class="tabcontent">
+        <div id="งานไก่ตกราว_p" class="tabcontent">
             <div class="display-font h3 text-center">
                 <div>
-                <button type="button">Plan</button>
-                <button type="button">Actual</button>
+                    <button onclick="openPage('plan2', this, '#5BA8A0')">Plan</button>
+                    <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / 20</div>
+                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / <%=@plantime.length%></div>
+                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
             </div>
              <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length == 0%>
@@ -158,15 +167,26 @@
                         <tr id=<%= User.find(row.user_id).name%>>
                             <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department:"งานไก่ตกราว",factory:@current_user.factory).length == 0%>
                                 <td><%= User.find(row.user_id).name%></td>
-                                <td ><%= row.time_in.strftime("%H:%M:%S")%></td>
+                                <td><%= row.time_in.strftime("%H:%M:%S")%></td>
                                 <% if row.time_out.nil?%>
                                     <td>#</td>
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
-                                <td>...</td>
+                                <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                    <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
+                                    <td class=<%="time_"+@code_name%>><%=@code_name%></td>
+                                <% else%>
+                                    <td>#</td>
+                                <%end%>
                                 <td><%= User.find(row.user_id).factory%></td>
-                                <td>...</td>
+                                <% unless User.find(row.user_id).schedule_actual_times.length == 0 %>
+                                    <%unless row.ot_time.nil?%>
+                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
+                                    <%end%>
+                                <%else%>
+                                    <td>#</td>
+                                <% end %>
                             <%end%>
                         </tr>
                     <%end%>                       
@@ -177,13 +197,14 @@
             </div> 
         </div>
 
-        <div id="work3" class="tabcontent">
+        <div id="งานเชือดไก่_p" class="tabcontent">
             <div class="display-font h3 text-center">
                 <div>
-                <button type="button">Plan</button>
-                <button typr="button">Actual</button>
+                    <button onclick="openPage('plan3', this, '#5BA8A0')">Plan</button>
+                    <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / 20</div>
+                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / <%=@plantime.length%></div>
+                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
             </div>
             <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length == 0%>
@@ -207,15 +228,26 @@
                         <tr id=<%= User.find(row.user_id).name%>>
                             <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department:"งานเชือดไก่",factory:@current_user.factory).length == 0%>
                                 <td><%= User.find(row.user_id).name%></td>
-                                <td ><%= row.time_in.strftime("%H:%M:%S")%></td>
+                                <td><%= row.time_in.strftime("%H:%M:%S")%></td>
                                 <% if row.time_out.nil?%>
                                     <td>#</td>
                                 <% else %>
                                     <td><%= row.time_out.strftime("%H:%M:%S")%></td>
                                 <% end %>
-                                <td>...</td>
+                                <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                    <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
+                                    <td class=<%="time_"+@code_name%>><%=@code_name%></td>
+                                <% else%>
+                                    <td>#</td>
+                                <%end%>
                                 <td><%= User.find(row.user_id).factory%></td>
-                                <td>...</td>
+                                <% unless User.find(row.user_id).schedule_actual_times.length == 0 %>
+                                    <%unless row.ot_time.nil?%>
+                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
+                                    <%end%>
+                                <%else%>
+                                    <td>#</td>
+                                <% end %>
                             <%end%>
                         </tr>
                     <%end%>                       
@@ -226,13 +258,14 @@
             </div> 
         </div>
 
-        <div id="work4" class="tabcontent">
+        <div id="งานจัดเก็บและจ่ายสินค้าแช่แข็ง_p" class="tabcontent">
             <div class="display-font h3 text-center">
                 <div>
-                <button type="button">Plan</button>
-                <button type="button">Actual</button>
+                    <button onclick="openPage('plan4', this, '#5BA8A0')">Plan</button>
+                    <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%> / 20</div> 
+                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%> / <%=@plantime.length%></div> 
+                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
             </div>
             <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"สินค้าแช่แข็ง").length == 0%>
@@ -274,13 +307,20 @@
                 <%= link_to register_user_path do %><i class="bi bi-plus btn btn-primary col-6 mx-auto">Add person</i><%end%>
             </div> 
     </div>
+
+    <!-- -------------------------------------------------ตาราง PLAN---------------------------------------------------------- -->
+    <!-- -------------------------------------------------ตาราง PLAN---------------------------------------------------------- -->
+    <!-- -------------------------------------------------ตาราง PLAN---------------------------------------------------------- -->
+    <!-- -------------------------------------------------ตาราง PLAN---------------------------------------------------------- -->
+
     <div id="plan1" class="tabcontent">
         <div class="display-font h3 text-center">
-                <div>
+            <div>
                 <button type="button">Plan</button>
-                <button type="button" onclick="openPage('work1', this, '#5BA8A0')">Actual</button>
-                </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%> 
+                <button type="button" onclick="openPage('งานถอนขน_p', this, '#5BA8A0')">Actual</button>
+            </div>
+            <div>
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%> 
             </div>
             <%# <% @actual_time.each do |row|%> 
                 <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
@@ -318,7 +358,7 @@
                                         <td><%=row.ot_time.strftime("%H:%M")%></td>
                                     <%end%>
                                 <%else%>
-                                    <td>-</td>
+                                    <td>#</td>
                                 <% end %>
                             <%end%>
                         </tr>
@@ -330,8 +370,182 @@
             </div> 
         </div>
     </div>
+
+    <div id="plan2" class="tabcontent">
+        <div class="display-font h3 text-center">
+            <div>
+                <button type="button">Plan</button>
+                <button type="button" onclick="openPage('งานไก่ตกราว_p', this, '#5BA8A0')">Actual</button>
+            </div>
+            <div>
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / <%=@plantime.length%> 
+            </div>
+            <%# <% @actual_time.each do |row|%> 
+                <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
+                <%# <div> %>
+                    <%# <%= User.find(row.user_id).name%> 
+                    <%# <%= row.time_in%> 
+                <%# </div> %>
+                <%# <%end%> 
+            <%# <%end%>   
+            <%# ======================================================================================================================= %>
+            <table class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
+                <thead>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>เวลา-เข้า</th>
+                    <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
+                    <th>โรงงาน</th>
+                    <th>OT</th>
+                </thead>
+                <tbody id="งานไก่ตกราว_c">
+                    <% @plantime.each do |row|%>
+                        <tr id=<%= User.find(row.user_id).name%>>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานไก่ตกราว",factory:@current_user.factory).length == 0%>
+                                <td><%= User.find(row.user_id).name%></td>
+                                <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                                <% if row.time_out.nil?%>
+                                    <td>#</td>
+                                <% else %>
+                                    <td><%= row.time_out.strftime("%H:%M:%S")%></td>
+                                <% end %>
+                                <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
+                                <td><%= User.find(row.user_id).factory%></td>
+                                <% unless User.find(row.user_id).schedule_plantimes.length == 0 %>
+                                    <%unless row.ot_time.nil?%>
+                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
+                                    <%end%>
+                                <%else%>
+                                    <td>#</td>
+                                <% end %>
+                            <%end%>
+                        </tr>
+                    <%end%>                       
+                </tbody>
+            </table>
+            <div class="text-center"> <!-- d-flex align-items-center justify-content-center -->
+                <%= link_to register_user_path do %><i class="bi bi-plus btn btn-primary col-6 mx-auto">Add person</i><%end%>
+            </div> 
+        </div>
     </div>
-    <!-- full page tab script -->
+
+    <div id="plan3" class="tabcontent">
+        <div class="display-font h3 text-center">
+            <div>
+                <button type="button">Plan</button>
+                <button type="button" onclick="openPage('งานเชือดไก่_p', this, '#5BA8A0')">Actual</button>
+            </div>
+            <div>
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / <%=@plantime.length%> 
+            </div>
+            <%# <% @actual_time.each do |row|%> 
+                <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
+                <%# <div> %>
+                    <%# <%= User.find(row.user_id).name%> 
+                    <%# <%= row.time_in%> 
+                <%# </div> %>
+                <%# <%end%> 
+            <%# <%end%>   
+            <%# ======================================================================================================================= %>
+            <table class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
+                <thead>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>เวลา-เข้า</th>
+                    <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
+                    <th>โรงงาน</th>
+                    <th>OT</th>
+                </thead>
+                <tbody id="งานเชือดไก่_c">
+                    <% @plantime.each do |row|%>
+                        <tr id=<%= User.find(row.user_id).name%>>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานเชือดไก่",factory:@current_user.factory).length == 0%>
+                                <td><%= User.find(row.user_id).name%></td>
+                                <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                                <% if row.time_out.nil?%>
+                                    <td>#</td>
+                                <% else %>
+                                    <td><%= row.time_out.strftime("%H:%M:%S")%></td>
+                                <% end %>
+                                <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
+                                <td><%= User.find(row.user_id).factory%></td>
+                                <% unless User.find(row.user_id).schedule_plantimes.length == 0 %>
+                                    <%unless row.ot_time.nil?%>
+                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
+                                    <%end%>
+                                <%else%>
+                                    <td>#</td>
+                                <% end %>
+                            <%end%>
+                        </tr>
+                    <%end%>                       
+                </tbody>
+            </table>
+            <div class="text-center"> <!-- d-flex align-items-center justify-content-center -->
+                <%= link_to register_user_path do %><i class="bi bi-plus btn btn-primary col-6 mx-auto">Add person</i><%end%>
+            </div> 
+        </div>
+    </div>
+
+    <div id="plan4" class="tabcontent">
+        <div class="display-font h3 text-center">
+            <div>
+                <button type="button">Plan</button>
+                <button type="button" onclick="openPage('งานจัดเก็บและจ่ายสินค้าแช่แข็ง_p', this, '#5BA8A0')">Actual</button>
+            </div>
+            <div>
+                จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%> / <%=@plantime.length%> 
+            </div>
+            <%# <% @actual_time.each do |row|%> 
+                <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
+                <%# <div> %>
+                    <%# <%= User.find(row.user_id).name%> 
+                    <%# <%= row.time_in%> 
+                <%# </div> %>
+                <%# <%end%> 
+            <%# <%end%>   
+            <%# ======================================================================================================================= %>
+            <table class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
+                <thead>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>เวลา-เข้า</th>
+                    <th>เวลา-ออก</th>
+                    <th>ช่วงเวลาทำงาน</th>
+                    <th>โรงงาน</th>
+                    <th>OT</th>
+                </thead>
+                <tbody id="งานจัดเก็บและจ่ายสินค้าแช่แข็ง_c">
+                    <% @plantime.each do |row|%>
+                        <tr id=<%= User.find(row.user_id).name%>>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานจัดเก็บและจ่ายสินค้าแช่แข็ง",factory:@current_user.factory).length == 0%>
+                                <td><%= User.find(row.user_id).name%></td>
+                                <td><%= row.time_in.strftime("%H:%M:%S")%></td>
+                                <% if row.time_out.nil?%>
+                                    <td>#</td>
+                                <% else %>
+                                    <td><%= row.time_out.strftime("%H:%M:%S")%></td>
+                                <% end %>
+                                <td><%= User.find(row.user_id).shiftcodes.last.code_name%></td>
+                                <td><%= User.find(row.user_id).factory%></td>
+                                <% unless User.find(row.user_id).schedule_plantimes.length == 0 %>
+                                    <%unless row.ot_time.nil?%>
+                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
+                                    <%end%>
+                                <%else%>
+                                    <td>#</td>
+                                <% end %>
+                            <%end%>
+                        </tr>
+                    <%end%>                       
+                </tbody>
+            </table>
+            <div class="text-center"> <!-- d-flex align-items-center justify-content-center -->
+                <%= link_to register_user_path do %><i class="bi bi-plus btn btn-primary col-6 mx-auto">Add person</i><%end%>
+            </div> 
+        </div>
+    </div>
+
+    <!-- script -->
     <script> 
         //full page tab
         function openPage(pageName,elmnt,color) {
@@ -363,7 +577,7 @@
         }
     </script>
     <div class="text-center d-grid" style="position: fixed; bottom:0px; height:40px; left:0px; right:0px; overflow:hidden">
-        <%=link_to "จัดการเวลาทำงาน",manage_user_path,class:"btn btn-info display-font"%>
+        <%=link_to "จัดการเวลาทำงาน",manage_user_path,class:"btn btn-info display-font text-light"%>
     </div>
 </body>
 </html>

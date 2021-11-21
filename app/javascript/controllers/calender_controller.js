@@ -14,7 +14,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 export default class extends Controller {
-    static values = { param: Object, }
+    static values = { param: Array, }
     connect() {
         console.log(this.paramValue)
         var calendarEl = document.querySelector('#calendar');

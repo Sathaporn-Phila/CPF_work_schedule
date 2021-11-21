@@ -21,7 +21,7 @@
       = f.select :employee_income_type,['monthly employee','daily employee','outsource employee'], { class: "form-control" }
     .mb-3
       = f.label " หน้าที่ผู้ทำงาน", { class: "form-label bi bi-person-badge-fill"}
-      = f.select :role,['ผู้จัดการ','หัวหน้าแผนก','คนงานทั่วไป'], { class: "form-control" }
+      = f.select :role,['ผู้จัดการ','หัวหน้าแผนก'], { class: "form-control" }
   .text-center
     - if request.fullpath == "/login"
       = submit_tag 'เข้าสู่ระบบ',class: "btn btn-primary"

@@ -90,7 +90,12 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
-                            <td>...</td>
+                            <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
+                                <td class=<%="time_"+@code_name%>><%=@code_name%></td>
+                            <% else%>
+                                <td>#</td>
+                            <%end%>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -123,7 +128,12 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
-                            <td>...</td>
+                            <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
+                                <td class=<%="time_"+@code_name%>><%=@code_name%></td>
+                            <% else%>
+                                <td>#</td>
+                            <%end%>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -156,7 +166,12 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
-                            <td>...</td>
+                            <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
+                                <td class=<%="time_"+@code_name%>><%=@code_name%></td>
+                            <% else%>
+                                <td>#</td>
+                            <%end%>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -189,7 +204,12 @@
                             <% else %>
                                 <td ><%= row.time_out.strftime("%H:%M:%S")%></td>
                             <% end %>
-                            <td>...</td>
+                            <%if User.find(row.user_id).shiftcodes.length > 0%>
+                                <%@code_name = User.find(row.user_id).shiftcodes.last.code_name%>
+                                <td class=<%="time_"+@code_name%>><%=@code_name%></td>
+                            <% else%>
+                                <td>#</td>
+                            <%end%>
                             <td><%= User.find(row.user_id).role%></td>
                             <td><%= User.find(row.user_id).department%></td>
                         <%end%>
@@ -216,5 +236,5 @@
         document.getElementById("defaultOpen").click();
     </script>
 
-</body>
+    </body>
 </html>

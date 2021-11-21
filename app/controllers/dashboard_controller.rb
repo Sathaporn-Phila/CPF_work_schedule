@@ -28,23 +28,21 @@ class DashboardController < ApplicationController
                 :time_in=>DateTime.now()
             )
             current_user.histories << @time_object1
-            ActionCable.server.broadcast(
-                'actual_time_channel',{
-                name: current_user.name,
-                time_in: @time_object.time_in.strftime("%H:%M:%S"),
-                time_out:"-",
-                department: current_user.department,
-                role: current_user.role,
-                act: "show"
-                }
-            )
+            # ActionCable.server.broadcast(
+            #     'actual_time_channel',{
+            #     name: current_user.name,
+            #     time_in: @time_object.time_in.strftime("%H:%M:%S"),
+            #     time_out:"-",
+            #     department: current_user.department,
+            #     role: current_user.role,
+            #     act: "show"
+            #     }
+            #)
         else 
             @time_object = ScheduleActualTime.find_by(user_id: current_user.id)
             if User.find_by(id: current_user.id).shiftcodes.length > 0
                 @shiftcode_time_out = User.find_by(id: current_user.id).shiftcodes.last.end_in
-                # @actual_ot = (Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)
                 @actual_ot = Time.at((Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)).utc.strftime("%H:%M:%S")
-                # @actual_ot = DateTime.now() - @time_object.time_in.hour.to_i.hours - @time_object.time_in.min.to_i.minute - @time_object.sec.to_i.second 
                 @time_object.update(
                     :time_out=>DateTime.now(),ot_time:@actual_ot
                 )
@@ -67,16 +65,16 @@ class DashboardController < ApplicationController
                     current_user.histories << @time_object1
                 end
             end
-            ActionCable.server.broadcast(
-                'actual_time_channel',{
-                name: current_user.name,
-                time_in: ScheduleActualTime.find_by(user_id: current_user.id).time_in.strftime("%H:%M:%S"),
-                time_out: ScheduleActualTime.find_by(user_id: current_user.id).time_out.strftime("%H:%M:%S"),
-                department: current_user.department,
-                role: current_user.role,
-                act: "delete"
-                }
-            )
+            # ActionCable.server.broadcast(
+            #     'actual_time_channel',{
+            #     name: current_user.name,
+            #     time_in: ScheduleActualTime.find_by(user_id: current_user.id).time_in.strftime("%H:%M:%S"),
+            #     time_out: ScheduleActualTime.find_by(user_id: current_user.id).time_out.strftime("%H:%M:%S"),
+            #     department: current_user.department,
+            #     role: current_user.role,
+            #     act: "delete"
+            #     }
+            #)
         end 
         redirect_to main_page_path
     end
