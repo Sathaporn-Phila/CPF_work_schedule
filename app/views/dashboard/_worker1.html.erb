@@ -108,8 +108,7 @@
         <%File.open("C:/Users/User/Desktop/CPF/app/javascript/controllers/events.json", "w") do |f|%>
             <% f.write(@event_do.to_json)%>
         <% end %>
-        <div class= "flex" data-controller="calender" >
-            <div id="calendar" ></div>
+        <div id="calendar" data-controller="calender" data-calender-param-value=<%=@event_do.to_json%>>
         </div>
     </div> 
             
