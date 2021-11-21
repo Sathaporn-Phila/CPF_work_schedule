@@ -15,6 +15,8 @@ import listPlugin from '@fullcalendar/list';
 
 export default class extends Controller {
     connect() {
+        var all_event = JSON.parse(this.data.get('calenderval'))
+        console.log(all_event)
         var calendarEl = document.querySelector('#calendar');
         this.calendar = new Calendar(calendarEl, {
             plugins: [dayGridPlugin, timeGridPlugin, listPlugin],
@@ -24,7 +26,7 @@ export default class extends Controller {
                 center: 'title',
                 right: 'today'
             },
-            events: [{ "title": "เวลาเข้า : 17:13:32", "start": "2021-11-20", "color": "green", "textColor": "black" }, { "title": "เวลาออก : 17:13:34", "start": "2021-11-20", "color": "red", "textColor": "black" }, { "title": "OT : 2.22", "start": "2021-11-20", "color": "orange", "textColor": "black" }]
+            events:[]
         });
         this.calendar.render()
     }
