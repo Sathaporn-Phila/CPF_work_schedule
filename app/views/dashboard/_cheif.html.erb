@@ -80,8 +80,10 @@
                     <button onclick="openPage('plan1', this, '#5BA8A0')">Plan</button>
                     <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / <%=@plantime.length%></div>
-                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
+                <div data-controller="shiftcode">
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%></span> / <%=@plantime.length%></div>
+                    <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
+                </div>
             </div>
             <%# <% @actual_time.each do |row|%> 
                 <%# <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length == 0%> 
@@ -203,8 +205,10 @@
                     <button onclick="openPage('plan3', this, '#5BA8A0')">Plan</button>
                     <button type="button">Actual</button>
                 </div>
-                <div>จำนวนพนักงาน(ที่มี/ต้องการ) <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / <%=@plantime.length%></div>
-                <div data-controller="shiftcode">เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
+                <div data-controller="shiftcode">
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%></span> / <%=@plantime.length%></div>
+                    <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
+                </div>
             </div>
             <!-- <% @actual_time.each do |row|%>
                 <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length == 0%>

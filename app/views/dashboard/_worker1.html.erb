@@ -96,9 +96,9 @@
                 <% end %>
             <% end %>
         <% end %>
-        <%File.open("C:/Users/User/Desktop/CPF/app/javascript/controllers/events.json", "w") do |f|%> 
-            <% f.write(@event_do.to_json)%>
-        <% end %>
+        <%#File.open("C:/Users/User/Desktop/CPF/app/javascript/controllers/events.json", "w") do |f|%> 
+            <%# f.write(@event_do.to_json)%>
+        <%#end %>
         <%#<div id="calendar" data-controller="calender" data-calender-param-value=<%=@event_do.to_json%>>  <%# หาวิธีส่ง array เข้าไปที่ stimulus> %>
         <%# </div> %>
         <%= content_tag :div, nil, data: {controller: "calender" ,calender_param_value: @event_do.to_json} do %>
