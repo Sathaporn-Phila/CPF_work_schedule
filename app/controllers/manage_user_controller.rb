@@ -4,8 +4,12 @@ class ManageUserController < ApplicationController
         @actual_time = ScheduleActualTime.all
     end
     def manage_worker
-        self.set_plan(params["ot_time_select"])
-        self.set_department(params['department'])
+        if params[:commit] == "ยืนยัน"
+            self.set_plan(params["ot_time_select"])
+            self.set_department(params['department'])
+        else
+            self.update_ot
+        end
     end
     def set_plan(plan_all)
         plan_all.each do |item|
@@ -33,9 +37,8 @@ class ManageUserController < ApplicationController
             @department_plan = department_each[0]
             @id_user_d = department_each[1]
             @user = User.find(@id_user_d)
-            unless (@user.department == @department_plan)
-                
-                User.find(@id_user_d).update(department: @department_plan.delete('\\"'))
+            unless (@user.department == @department_plan) || @department_plan.nil?
+                User.find(@id_user_d).update(department: @department_plan)
             end
         end
     end
@@ -50,5 +53,22 @@ class ManageUserController < ApplicationController
             end
         end
         return [some_item,@id_user]
+    end
+    def update_ot
+        @ot_who_update = params["ot_time_select"]
+        unless @ot_who_update.nil?
+            @ot_who_update.each do |item|
+                item = create_array_from_object(item)
+                @ot_time = item[0]
+                @id_user = item[1]
+                @ot_time = Time.parse(@ot_time)
+                user = User.find(@id_user)
+                if user.schedule_plantimes.length > 0
+                    user.schedule_plantimes.last.update(ot_time:@ot_time)
+                
+                end
+            end
+        end
+        redirect_to manage_user_path 
     end
 end

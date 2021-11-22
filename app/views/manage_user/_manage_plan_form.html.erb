@@ -21,8 +21,7 @@
                 var ele=document.getElementsByName('chk');  
                 for(var i=0; i<ele.length; i++){  
                     if(ele[i].type=='checkbox')  
-                        ele[i].checked=false;  
-                      
+                        ele[i].checked=false;   
                 }  
             }             
         </script>  
@@ -101,13 +100,11 @@
                             <%# <td><%=check_box_tag(":ot_time_#{row.user_id}".to_sym)%>
                             <td><%=select_tag("ot_time_#{row.user_id}".to_sym,options_for_select(all_time))%></td>
                             <td><%=select_tag("department_#{row.user_id}".to_sym,options_for_select(all_department))%></td>
-
                         <%end%>      
                     </tr>
                 <%end%>                       
             </tbody>
         </table>
-
         <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
         <%=submit_tag("ยืนยัน",class:"btn btn-success")%>
     <%end%>

@@ -86,14 +86,14 @@
                                     textColor: 'black'
                                     })%>
                 <% end %>
-                <% unless @actual_time.find_by(user_id: @current_user.id).ot_time.nil? %>
-                    <% @event_do.push({
-                                    title: 'OT : ' + @actual_time.find_by(user_id: @current_user.id).ot_time.strftime("%H:%M:%S"),
-                                    start: @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%d"),
-                                    color: 'orange',
-                                    textColor: 'black'
-                                    })%>
-                <% end %>
+                    <% unless @history.find_by(user_id: @current_user.id).ot_time.nil? %>
+                        <% @event_do.push({
+                                        title: 'OT : ' + @history.find_by(user_id: @current_user.id).ot_time.strftime("%H:%M:%S"),
+                                        start: @history.find_by(user_id: @current_user.id).time_out.strftime("%Y-%m-%d"),
+                                        color: 'orange',
+                                        textColor: 'black'
+                                        })%>
+                    <% end %>
             <% end %>
         <% end %>
         <%#File.open("C:/Users/User/Desktop/CPF/app/javascript/controllers/events.json", "w") do |f|%> 

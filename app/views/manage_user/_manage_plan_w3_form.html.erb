@@ -3,75 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <link href="app/assets/stylesheet/style.css.scss" rel="stylesheet">
     <!-- font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;300&display=swap" rel="stylesheet">
-    <script type="text/javascript">  
-            function selects(){  
-                var ele=document.getElementsByName('chk');  
-                for(var i=0; i<ele.length; i++){  
-                    if(ele[i].type=='checkbox')  
-                        ele[i].checked=true;  
-                }  
-            }  
-            function deSelect(){  
-                var ele=document.getElementsByName('chk');  
-                for(var i=0; i<ele.length; i++){  
-                    if(ele[i].type=='checkbox')  
-                        ele[i].checked=false;  
-                      
-                }  
-            }             
-        </script>  
 </head>
 
 <body>
-    <div data-controller="checkbox">
-    <%=form_tag do%>
-        <div class="form-check">
-            <button type="button" data-action="checkbox#checkAll">Select</button>
-            <button type="button" data-action="checkbox#checkNone">Unselect</button>
-            <%all_time = []%>
-            <% for hour in (0..4)%>
-                <%for min in (0..1)%>
-                    <% all_time.push((hour.to_s+":"+(min*30).to_s))%>
-                <%end%>
-            <%end%>
-            <%all_department = ['งานถอนขน','งานไก่ตกราว','งานเชือดไก่','งานสินค้าแช่แข็ง']%>
-            <%=select_tag :ot_time,options_for_select(all_time),class:"ot",data:{action:"checkbox#setOvertime"}%>
-        </div>
-        <table id="work1" class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
-            <thead>
-                <th>ชื่อ-นามสกุล</th>
-                <th>แผนก</th>
-                <th>OT time</th>
-                <th>OT check</th>
-            </thead>
-            <%#all_time.each{|time|[].push([time,row.user_id])}%>
-            <tbody id="time_object">
-                <% @actual_time.each do |row|%>
-                    <tr class=<%= User.find(row.user_id).name%>>
-                        <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานเชือดไก่").length == 0%>
-                            <td><%= User.find(row.user_id).name%></td>
-                            <%@all_department_with_id=[]%>
-                            <%all_department.map {|department| @all_department_with_id << [department,[department,row.user_id]]}%>
-                            <td><%=select_tag "department[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
-                            <%@all_time_with_id=[]%>
-                            <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
-                            <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>
-                            <td><%=check_box_tag "chk[]",row.user_id,false,id:User.find(row.user_id).name,data:{action:'change->checkbox#setStatusSelectTag',target:'checkbox.overtime'}%></td>
-                        <%end%>      
-                    </tr>
-                <%end%>                       
-            </tbody>
-        </table>
-
-        <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
-        <%=submit_tag("ยืนยัน",class:"btn btn-success")%>
-    <%end%>
+    <div class="tab">
+        <button class="tablinks" type="button" onclick="opentable(event, 'move_user_and_assign_ot3')" id="defaultOpen">โยกย้ายแผนก/มอบหมาย OT</button>
+        <button class="tablinks" type="button" onclick="opentable(event, 'update_ot3')">ตรวจสอบ OT</button>
+        <!--<button class="tablinks" type="button" onclick="opentable(event, '#')">ปุ่มว่างให้เช่า ถ้าเพิ่มก็ไปแก้ใน css ด้วย</button> -->
     </div>
+
+    <div id="move_user_and_assign_ot3" data-controller="checkbox" class="minitabcontent">
+        <%=form_tag do%>
+            <div class="form-check">
+                <button type="button" data-action="checkbox#checkAll">เลือกทั้งหมด</button>
+                <button type="button" data-action="checkbox#checkNone">ไม่เลือก</button>
+                <%all_time = []%>
+                <% for hour in (0..4)%>
+                    <%for min in (0..1)%>
+                        <% all_time.push((hour.to_s+":"+(min*30).to_s))%>
+                    <%end%>
+                <%end%>
+                <%all_department = ['งานถอนขน','งานไก่ตกราว','งานเชือดไก่','งานสินค้าแช่แข็ง']%>
+
+                <!--เทสปุ่ม เอาไว้เลือกแผนกที่จะย้ายให้ทั้งตาราง (บัคอยู่ ทำไม่เปลลลลลล)-->
+                <%=select_tag :department,options_for_select(all_department),class:"department",include_blank:"เลือกแผนก",data:{action:"checkbox#setDepartment"} %>
+                <%=select_tag :ot_time,options_for_select(all_time),class:"ot",data:{action:"checkbox#setOvertime"}%>
+            </div>
+            <table id="work3" class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
+                <thead>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>แผนก</th>
+                    <th>OT time</th>
+                    <th>OT check</th>
+                </thead>
+                <%#all_time.each{|time|[].push([time,row.user_id])}%>
+                <tbody id="time_object">
+                    <% @actual_time.each do |row|%>
+                        <tr class=<%= User.find(row.user_id).name%>>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานเชือดไก่").length == 0%>
+                                <td><%= User.find(row.user_id).name%></td>
+                                <%@all_department_with_id=[]%>
+                                <%all_department.map {|department| @all_department_with_id << [department,[department,row.user_id]]}%>
+                                <td><%=select_tag "department[]",options_for_select(@all_department_with_id),include_blank:"เลือกแผนก",class:"department"%></td>
+                                <%@all_time_with_id=[]%>
+                                <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
+                                <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>
+                                <td><%=check_box_tag "chk[]",row.user_id,false,id:User.find(row.user_id).name,data:{action:'change->checkbox#setStatusSelectTag',target:'checkbox.overtime'}%></td>
+                            <%end%>      
+                        </tr>
+                    <%end%>                       
+                </tbody>
+            </table>
+            <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+            <%=submit_tag("ยืนยัน",class:"btn btn-success")%>
+        <%end%>
+    </div>
+
+    <div id="update_ot3" data-controller="checkbox" class="minitabcontent">
+        <%=form_tag method: :get do%>
+            <!--<div id="ot_w1" >-->
+            <div class="form-check">
+                <button type="button" data-action="checkbox#checkAll">Select</button>
+                <button type="button" data-action="checkbox#checkNone">Unselect</button>
+                <%all_time = []%>
+                <% for hour in (0..4)%>
+                    <%for min in (0..1)%>
+                        <% all_time.push((hour.to_s+":"+(min*30).to_s))%>
+                    <%end%>
+                <%end%>
+                <%=select_tag :ot_time,options_for_select(all_time),class:"ot",data:{action:"checkbox#setOvertime"}%>
+            </div>
+            <table id="work3" class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10'>
+                <thead>
+                    <th>ชื่อ-นามสกุล</th>
+                    <th>OT time</th>
+                    <th>OT check</th>
+                </thead>
+                <%#all_time.each{|time|[].push([time,row.user_id])}%>
+                <tbody id="time_object">
+                    <% @actual_time.each do |row|%>
+                        <tr class=<%= User.find(row.user_id).name%>>
+                            <% unless User.where(id:row.user_id,role:'คนงานทั่วไป',department: "งานเชือดไก่").length == 0%>
+                                <td><%= User.find(row.user_id).name%></td>
+                                <%@all_time_with_id=[]%>
+                                <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
+                                <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>
+                                <td><%=check_box_tag "chk[]",row.user_id,false,id:User.find(row.user_id).name,data:{action:'change->checkbox#setStatusSelectTag',target:'checkbox.overtime'}%></td>
+                            <%end%>      
+                        </tr>
+                    <%end%>                       
+                </tbody>
+            </table>
+            <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+            <%=submit_tag("อัพเดท",class:"btn btn-success")%>
+        <%end%>
+    </div>
+
+    <script>
+        function opentable(evt, tablename) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("minitabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tablename).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
 </body>
 </html>

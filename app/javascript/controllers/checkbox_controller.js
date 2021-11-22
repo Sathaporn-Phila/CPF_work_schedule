@@ -52,6 +52,13 @@ export default class extends Controller {
       })
     }
   }
+  setDepartment(event){
+    console.log(this.all_select_department_tag)
+    this.all_select_department_tag.forEach((el)=>{
+      const select_tag = el;
+      select_tag.selectedIndex = event.currentTarget.selectedIndex
+    })
+  }
   setAllCheckboxes(checked) {
     this.checkboxes.forEach((el) => {
       const checkbox = el;
@@ -82,5 +89,8 @@ export default class extends Controller {
   }
   get all_select_tag(){
     return new Array(...this.element.querySelectorAll('.ot'))
+  }
+  get all_select_department_tag(){
+    return new Array(...this.element.querySelectorAll('.department'))
   }
 }

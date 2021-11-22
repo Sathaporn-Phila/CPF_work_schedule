@@ -27,6 +27,7 @@ class DashboardController < ApplicationController
                 :user_id => current_user.id,
                 :time_in=>DateTime.now()
             )
+            current_user.schedule_actual_times << @time_object
             current_user.histories << @time_object1
             # ActionCable.server.broadcast(
             #     'actual_time_channel',{
@@ -43,16 +44,12 @@ class DashboardController < ApplicationController
             if User.find_by(id: current_user.id).shiftcodes.length > 0
                 @shiftcode_time_out = User.find_by(id: current_user.id).shiftcodes.last.end_in
                 @actual_ot = Time.at((Time.now() - ((Time.now().hour - @shiftcode_time_out.hour).hours + (Time.now().min - @shiftcode_time_out.min).minute).ago)).utc.strftime("%H:%M:%S")
-                @time_object.update(
-                    :time_out=>DateTime.now(),ot_time:@actual_ot
-                )
-                @time_object1 = History.find_by(user_id: current_user.id).update(
-                    :time_out=>DateTime.now()
+                @time_object.destroy
+                @time_object1 = current_user.histories.last.update(
+                    {:ot_time=>@actual_ot,:time_out=>DateTime.now()}
                 )
             else
-                @time_object.update(
-                    :time_out=>DateTime.now()
-                )
+                @time_object.destroy
                 unless History.find_by(user_id: current_user.id).nil?
                     @time_object1 = History.find_by(user_id: current_user.id).update(
                         :time_out=>DateTime.now()
@@ -97,7 +94,6 @@ class DashboardController < ApplicationController
             redirect_to main_page_path
         else
           render 'register_user'
-        end
-        
+        end        
     end 
 end
