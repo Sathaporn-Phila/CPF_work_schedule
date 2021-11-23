@@ -34,9 +34,11 @@
 
     <div class="d-flex flex-row align-items-center">
         <div class="d-flex flex-column flex-grow-1">
+            <p></p>
             <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
             <div class="display-font"> สถานที่ทำงาน : <%= @current_user.factory %></div>
             <div class="display-font"> แผนก : <%= @current_user.department %> </div>
+            <p></p>
         </div>
 
         <div class="flex-grow-1 align-items-center">
@@ -56,20 +58,11 @@
         </div>
     </div>
 
-<!-- -------------------------------------------------สถิติการทำงาน---------------------------------------------------------- -->
-
-    <div class="d-flex flex-row align-items-center">
-        <div class="d-flex flex-column flex-grow-1">
-            <div class="display-font"> จำนวนชั่วโมงทั้งหมด : ... </div>
-            <div class="display-font"> จำนวนชั่วโมง OT ทั้งหมด : ... </div>
-        </div>
-    </div>
-
-<!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
+<!-- -------------------------------------------------ปฏิทินคนเข้างาน---------------------------------------------------------- -->
          
-    <h3 class="display-font text-center"> ตารางบันทึกการทำงาน </h3>
-    <%@event_do = []%>
-        
+    <h3 class="display-font text-center"> ปฏิทินบันทึกการทำงาน </h3>
+
+    <%@event_do = []%>     
         <% @history.each do |u|%>
             <% if u.user_id == @current_user.id%>
                 <% @event_do.push({
@@ -99,7 +92,7 @@
         <%#File.open("C:/Users/User/Desktop/CPF/app/javascript/controllers/events.json", "w") do |f|%> 
             <%# f.write(@event_do.to_json)%>
         <%#end %>
-        <%#<div id="calendar" data-controller="calender" data-calender-param-value=<%=@event_do.to_json%>>  <%# หาวิธีส่ง array เข้าไปที่ stimulus> %>
+        <%#<div id="calendar" data-controller="calender" data-calender-param-value=<%=@event_do.to_json%>  <%# หาวิธีส่ง array เข้าไปที่ stimulus> %>
         <%# </div> %>
         <%= content_tag :div, nil, data: {controller: "calender" ,calender_param_value: @event_do.to_json} do %>
             <div id="calendar"></div>

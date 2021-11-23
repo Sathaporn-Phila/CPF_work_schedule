@@ -31,18 +31,22 @@
         <div class="d-flex flex-row-reverse align-items-center">
     
             <%=link_to logout_path do%>
-                <i class="bi bi-box-arrow-right btn btn-danger" id="logout-button" aria-hidden="true"> Logout </i>
+                <i class="bi bi-box-arrow-right btn btn-danger display-font" id="logout-button" aria-hidden="true"> Logout </i>
             <%end%>
                 
-            <div class='flex-grow-1 text-center display-3 text-light' id="header-text" text-align="center">CPF schedule workplan</div>
+            <div class='flex-grow-1 text-center display-3 display-font text-light' id="header-text" text-align="center">CPF schedule workplan</div>
+
+                <i class="bi bi-file-person btn btn-primary display-font" id="logout-button" aria-hidden="true"> <%=@current_user.role%> </i>
         </div>
     </header>
 
     <div class="d-flex flex-row align-items-center">
         <div class="d-flex flex-column flex-grow-1">
+            <p></p>
             <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
             <div class="display-font"> สถานที่ทำงาน : <%= @current_user.factory %></div>
             <div class="display-font"> ตำแหน่ง : <%= @current_user.role %> </div>
+            <p></p>
         </div>
 
         <div class="flex-grow-1 align-items-center">

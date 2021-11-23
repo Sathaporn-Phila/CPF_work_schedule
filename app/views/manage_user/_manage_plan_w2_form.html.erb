@@ -30,15 +30,15 @@
 
 <body>
     <div class="tab">
-        <button class="tablinks" type="button" onclick="opentable(event, 'move_user_and_assign_ot2')" id="defaultOpen">โยกย้ายแผนก/มอบหมาย OT</button>
+        <button class="tablinks" type="button" onclick="opentable(event, 'move_user_and_assign_ot2')" id="defaultOpen_2">โยกย้ายแผนก/มอบหมาย OT</button>
         <button class="tablinks" type="button" onclick="opentable(event, 'update_ot2')">ตรวจสอบ OT</button>
         <!--<button class="tablinks" type="button" onclick="opentable(event, '#')">ปุ่มว่างให้เช่า ถ้าเพิ่มก็ไปแก้ใน css ด้วย</button> -->
     </div>
     <div id="move_user_and_assign_ot2" data-controller="checkbox" class="minitabcontent">
         <%=form_tag do%>
             <div class="form-check">
-                <button type="button" data-action="checkbox#checkAll">Select</button>
-                <button type="button" data-action="checkbox#checkNone">Unselect</button>
+                <button type="button" data-action="checkbox#checkAll">เลือกทั้งหมด</button>
+                <button type="button" data-action="checkbox#checkNone">ไม่เลือก</button>
                 <%all_time = []%>
                 <% for hour in (0..4)%>
                     <%for min in (0..1)%>
@@ -65,7 +65,7 @@
                                 <td><%= User.find(row.user_id).name%></td>
                                 <%@all_department_with_id=[]%>
                                 <%all_department.map {|department| @all_department_with_id << [department,[department,row.user_id]]}%>
-                                <td><%=select_tag "department_select[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
+                                <td><%=select_tag "department_select[]",options_for_select(@all_department_with_id),include_blank:"เลือกแผนก",class:"department"%></td>
                                 <%@all_time_with_id=[]%>
                                 <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
                                 <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>
@@ -84,8 +84,8 @@
         <%=form_tag method: :get do%>
             <!--<div id="ot_w1" >-->
             <div class="form-check">
-                <button type="button" data-action="checkbox#checkAll">Select</button>
-                <button type="button" data-action="checkbox#checkNone">Unselect</button>
+                <button type="button" data-action="checkbox#checkAll">เลือกทั้งหมด</button>
+                <button type="button" data-action="checkbox#checkNone">ไม่เลือก</button>
                 <%all_time = []%>
                 <% for hour in (0..4)%>
                     <%for min in (0..1)%>
@@ -116,7 +116,7 @@
                 </tbody>
             </table>
             <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
-            <%=submit_tag("อัพเดท",class:"btn btn-success")%>
+            <%=submit_tag("อัปเดต",class:"btn btn-success")%>
         <%end%>
     </div>
 
@@ -135,7 +135,7 @@
             evt.currentTarget.className += " active";
         }
         // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
+        document.getElementById("defaultOpen_2").click();
     </script>
 
 </body>

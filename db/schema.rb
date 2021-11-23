@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
 
   create_table "histories", force: :cascade do |t|
     t.string "department_name"
+    t.string "factory"
     t.datetime "time_in"
     t.datetime "time_out"
     t.integer "user_id", null: false
@@ -25,6 +26,7 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
 
   create_table "schedule_actual_times", force: :cascade do |t|
     t.string "department_name"
+    t.string "factory"
     t.datetime "time_in"
     t.datetime "time_out"
     t.integer "user_id", null: false
@@ -36,6 +38,8 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
 
   create_table "schedule_plantimes", force: :cascade do |t|
     t.string "shift_code"
+    t.string "department_name"
+    t.string "factory_name"
     t.datetime "time_in"
     t.datetime "time_out"
     t.datetime "ot_time"
