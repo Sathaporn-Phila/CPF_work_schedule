@@ -10,19 +10,19 @@ html {
     overflow-x: hidden;
 }
 
-::-webkit-scrollbar {
+
+/*::-webkit-scrollbar {
     width: 0;
-    /* Remove scrollbar space */
     background: transparent;
-    /* Optional: just make scrollbar invisible */
-}
+}*/
 
 
 /* Optional: show position indicator in red */
 
-::-webkit-scrollbar-thumb {
+
+/*::-webkit-scrollbar-thumb {
     background: #FF0000;
-}
+}*/
 
 *,
 *:before,
@@ -193,36 +193,51 @@ html {
     height: 100%;
 }
 
+
 /* ============== btn group =============== */
 
 .btn-group button {
-    background-color: #04AA6D; /* Green background */
-    border: 1px solid green; /* Green border */
-    color: white; /* White text */
-    padding: 10px 24px; /* Some padding */
-    cursor: pointer; /* Pointer/hand icon */
-    float: left; /* Float the buttons side by side */
-  }
-  
-  /* Clear floats (clearfix hack) */
-  .btn-group:after {
+    background-color: #04AA6D;
+    /* Green background */
+    border: 1px solid green;
+    /* Green border */
+    color: white;
+    /* White text */
+    padding: 10px 24px;
+    /* Some padding */
+    cursor: pointer;
+    /* Pointer/hand icon */
+    float: left;
+    /* Float the buttons side by side */
+}
+
+
+/* Clear floats (clearfix hack) */
+
+.btn-group:after {
     content: "";
     clear: both;
     display: table;
-  }
-  
-  .btn-group button:not(:last-child) {
-    border-right: none; /* Prevent double borders */
-  }
-  
-  /* Add a background color on hover */
-  .btn-group button:hover {
+}
+
+.btn-group button:not(:last-child) {
+    border-right: none;
+    /* Prevent double borders */
+}
+
+
+/* Add a background color on hover */
+
+.btn-group button:hover {
     background-color: #3e8e41;
-  }
+}
+
 
 /* ==============mini tab content=============== */
 
+
 /* Style the tab */
+
 .tab {
     overflow: hidden;
     display: flex;
@@ -233,32 +248,40 @@ html {
     border: 1px solid #ccc;
     border-radius: 10px 10px 10px 10px;
     background-color: #f1f1f1;
-  }
-  
-  /* Style the buttons inside the tab */
-  .tab button {
+}
+
+
+/* Style the buttons inside the tab */
+
+.tab button {
     background-color: whitesmoke;
     border: 1px;
     width: 50%;
-    float:left;
+    float: left;
     outline: none;
     cursor: pointer;
     transition: 0.3s;
     font-size: 20px;
-  }
-  
-  /* Change background color of buttons on hover */
-  .tab button:hover {
+}
+
+
+/* Change background color of buttons on hover */
+
+.tab button:hover {
     background-color: #ddd;
-  }
-  
-  /* Create an active/current tablink class */
-  .tab button.active {
+}
+
+
+/* Create an active/current tablink class */
+
+.tab button.active {
     background-color: #ccc;
-  }
-  
-  /* Style the tab content */
-  .minitabcontent {
+}
+
+
+/* Style the tab content */
+
+.minitabcontent {
     display: none;
     border-top: none;
-  }
+}

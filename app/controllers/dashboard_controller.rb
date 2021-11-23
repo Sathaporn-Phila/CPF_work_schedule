@@ -58,12 +58,12 @@ class DashboardController < ApplicationController
                 'actual_time_channelschedule_room',{
                 name: current_user.name,
                 time_in: ScheduleActualTime.find_by(user_id: current_user.id).time_in.strftime("%H:%M:%S"),
-                time_out: @actual_ot,
+                time_out: DateTime.now().strftime("%H:%M:%S"),
                 factory:current_user.factory,
                 shift_code:current_user.shiftcodes.last.code_name,
                 department: current_user.department,
                 role: current_user.role,
-                ot_time:DateTime.now(),
+                ot_time:@actual_ot,
                 act: "delete"}
                 )
                 @time_object.destroy
