@@ -71,7 +71,7 @@
     <div>
         <div id="work1" class="tabcontent">
             <div class="display-font h3 text-center">
-                จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / 10
+                จำนวนพนักงาน : <%=@actual_time.length%> / 10
                 <%=render "manage_plan_w1_form"%>
             </div>
         </div>

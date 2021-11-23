@@ -37,6 +37,7 @@
             <div class="display-font"> ชื่อ-นามสกุล : <%=@current_user.name %> </div>
             <div class="display-font"> สถานที่ทำงาน : <%= @current_user.factory %></div>
             <div class="display-font"> ตำแหน่ง : <%= @current_user.role %> </div>
+            <div>Hello</div>
         </div>
 
         <div class="flex-grow-1 align-items-center">
@@ -57,7 +58,6 @@
 
         </span>
     </div>
-    
     <!-- -------------------------------------------------ตารางคนเข้างาน---------------------------------------------------------- -->
     <div id="myHeader" data-controller="shiftcode">
         <%= content_tag :div, nil, data: {controller: "shiftcode" ,shiftcode_pagename_value: "งานถอนขน"} do %>
@@ -81,7 +81,7 @@
                     <button type="button">Actual</button>
                 </div>
                 <div data-controller="shiftcode">
-                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
                     <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
                 </div>
             </div>

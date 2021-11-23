@@ -81,7 +81,7 @@
                     <button type="button">Actual</button>
                 </div>
                 <div data-controller="shiftcode">
-                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
                     <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
                 </div>
             </div>
@@ -121,10 +121,8 @@
                                     <td>#</td>
                                 <%end%>
                                 <td><%= User.find(row.user_id).factory%></td>
-                                <% unless User.find(row.user_id).schedule_actual_times.length == 0 %>
-                                    <%unless row.ot_time.nil?%>
-                                        <td><%=row.ot_time.strftime("%H:%M")%></td>
-                                    <%end%>
+                                <%unless row.ot_time.nil?%>
+                                    <td><%=row.ot_time.strftime("%H:%M")%></td>
                                 <%else%>
                                     <td>#</td>
                                 <% end %>

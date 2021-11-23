@@ -68,7 +68,9 @@ export default class extends Controller {
       }
     });
   }
-
+  show_select_tag(event){
+    console.log(event.currentTarget.value)
+  }
   setCount() {
     if (this.hasCountTarget) {
       const count = this.selectedCheckboxes.length;

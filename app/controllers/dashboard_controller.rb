@@ -20,12 +20,14 @@ class DashboardController < ApplicationController
         @lat_lng = cookies[:lat_lng]
         if ScheduleActualTime.all.where(user_id: current_user.id).length == 0
             @time_object = ScheduleActualTime.create(
-                :time_in=>DateTime.now()
+                :time_in=>DateTime.now(),
+                :department_name=>current_user.department
             )
             current_user.schedule_actual_times << @time_object
             @time_object1 = History.create(
                 :user_id => current_user.id,
-                :time_in=>DateTime.now()
+                :time_in=>DateTime.now(),
+                :department_name=>current_user.department
             )
             current_user.schedule_actual_times << @time_object
             current_user.histories << @time_object1

@@ -5,8 +5,12 @@ class ManageUserController < ApplicationController
     end
     def manage_worker
         if params[:commit] == "ยืนยัน"
-            self.set_plan(params["ot_time_select"])
-            self.set_department(params['department'])
+            unless params["ot_time_select"].nil?
+                self.set_plan(params["ot_time_select"])
+            end
+            unless params['department'].nil?
+                self.set_department(params['department'])
+            end
         else
             self.update_ot
         end
@@ -28,7 +32,7 @@ class ManageUserController < ApplicationController
             end
             user.schedule_plantimes << @new_plan_time
         end
-        redirect_to manage_user_path
+        #redirect_to manage_user_path
     end
 
     def set_department(department_all)
@@ -39,6 +43,8 @@ class ManageUserController < ApplicationController
             @user = User.find(@id_user_d)
             unless (@user.department == @department_plan) || @department_plan.nil?
                 User.find(@id_user_d).update(department: @department_plan)
+                User.schedule_actual_times.last.update(department_name:@department_plan)
+                User.histories.last.update(department_name:@department_plan)
             end
         end
     end
@@ -65,7 +71,6 @@ class ManageUserController < ApplicationController
                 user = User.find(@id_user)
                 if user.schedule_plantimes.length > 0
                     user.schedule_plantimes.last.update(ot_time:@ot_time)
-                
                 end
             end
         end
