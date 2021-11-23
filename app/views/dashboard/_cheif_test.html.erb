@@ -81,7 +81,7 @@
                     <button type="button">Actual</button>
                 </div>
                 <div data-controller="shiftcode">
-                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.where(department_name:"งานถอนขน").length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
                     <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
                 </div>
             </div>
@@ -143,7 +143,7 @@
                     <button type="button">Actual</button>
                 </div>
                 <div data-controller="shiftcode">
-                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.where(department_name:"งานไก่ตกราว").length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
                     <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
                 </div>
             </div>
@@ -206,7 +206,7 @@
                     <button type="button">Actual</button>
                 </div>
                 <div data-controller="shiftcode">
-                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%></span> / <%=@plantime.length%></div>
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.where(department_name:"งานไก่ตกราว").length%></span> / <%=@plantime.length%></div>
                     <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
                 </div>
             </div>
@@ -269,7 +269,7 @@
                     <button type="button">Actual</button>
                 </div>
                 <div data-controller="shiftcode">
-                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
+                    <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.where(department_name:"งานจัดเก็บและจ่ายสินค้าแช่แข็ง").length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
                     <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>
                 </div>
             </div>

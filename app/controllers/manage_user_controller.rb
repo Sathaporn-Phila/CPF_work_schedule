@@ -8,12 +8,13 @@ class ManageUserController < ApplicationController
             unless params["ot_time_select"].nil?
                 self.set_plan(params["ot_time_select"])
             end
-            unless params['department'].nil?
-                self.set_department(params['department'])
+            unless params['department_select'].nil?
+                self.set_department(params['department_select'])
             end
         else
             self.update_ot
         end
+        redirect_to manage_user_path
     end
     def set_plan(plan_all)
         plan_all.each do |item|
@@ -32,19 +33,18 @@ class ManageUserController < ApplicationController
             end
             user.schedule_plantimes << @new_plan_time
         end
-        #redirect_to manage_user_path
     end
 
     def set_department(department_all)
         department_all.each do |department_each|
             department_each = create_array_from_object(department_each)
-            @department_plan = department_each[0]
+            @department_plan = department_each[0].delete('\\"')
             @id_user_d = department_each[1]
             @user = User.find(@id_user_d)
             unless (@user.department == @department_plan) || @department_plan.nil?
                 User.find(@id_user_d).update(department: @department_plan)
-                User.schedule_actual_times.last.update(department_name:@department_plan)
-                User.histories.last.update(department_name:@department_plan)
+                User.find(@id_user_d).schedule_actual_times.last.update(department_name:@department_plan)
+                User.find(@id_user_d).histories.last.update(department_name:@department_plan)
             end
         end
     end

@@ -65,7 +65,7 @@
                                 <td><%= User.find(row.user_id).name%></td>
                                 <%@all_department_with_id=[]%>
                                 <%all_department.map {|department| @all_department_with_id << [department,[department,row.user_id]]}%>
-                                <td><%=select_tag "department[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
+                                <td><%=select_tag "department_select[]",options_for_select(@all_department_with_id),include_blank:"Move to",class:"department"%></td>
                                 <%@all_time_with_id=[]%>
                                 <%all_time.map {|time| @all_time_with_id << [time,[time,row.user_id]]}%>
                                 <td><%=select_tag "ot_time_select[]",options_for_select(@all_time_with_id),disabled:true,class:"ot",id:"select_"+row.user_id.to_s%></td>
