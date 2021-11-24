@@ -26,7 +26,11 @@ consumer.subscriptions.create({ channel: "ActualTimeChannel", room: "schedule_ro
 
         if (data["act"] == "show") {
             element.insertAdjacentHTML("beforeend", this.elem);
+            this.num_people = Number($('#โรงงาน')[0].innerHTML) + 1
+            $('#โรงงาน')[0].innerHTML = this.num_people
         } else {
+            this.num_people = Number($('#โรงงาน')[0].innerHTML) - 1
+            $('#โรงงาน')[0].innerHTML = this.num_people
             this.time_elem = document.querySelectorAll(`tr#${data['name']}`)
             this.time_elem[this.time_elem.length - 1].remove()
             element.insertAdjacentHTML("beforeend", this.elem);

@@ -19,12 +19,21 @@ class DashboardController < ApplicationController
     def check_timestamp
         @lat_lng = cookies[:lat_lng]
         if ScheduleActualTime.all.where(user_id: current_user.id).length == 0
-            @time_object = ScheduleActualTime.create(
-                :time_in=>DateTime.now(),
-                :code_name=>current_user.shiftcodes.last.code_name,
-                :department_name=>current_user.department,
-                :factory=>current_user.factory
-            )
+            puts current_user
+            if current_user.role == "คนงานทั่วไป" 
+                @time_object = ScheduleActualTime.create(
+                    :time_in=>DateTime.now(),
+                    :code_name=>current_user.shiftcodes.last.code_name,
+                    :department_name=>current_user.department,
+                    :factory=>current_user.factory
+                )
+            else
+                @time_object = ScheduleActualTime.create(
+                    :time_in=>DateTime.now(),
+                    :department_name=>current_user.department,
+                    :factory=>current_user.factory
+                )
+            end
             current_user.schedule_actual_times << @time_object
             @time_object1 = History.create(
                 :user_id => current_user.id,

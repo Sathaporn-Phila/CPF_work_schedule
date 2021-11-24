@@ -4,18 +4,18 @@ export default class extends Controller {
     static targets = ["actualCount", "planCount"]
     static values = { pagename: String, factory: String }
     connect() {
-        //if (this.pagenameValue == "งานถอนขน") {
-        //    this.tableName = "งานถอนขน";
-        //} else if (this.pagenameValue == "งานไก่ตกราว") {
-        //    this.tableName = "งานไก่ตกราว";
-        //} else if (this.pagenameValue == "งานเชือดไก่") {
-        //    this.tableName = "งานเชือดไก่";
-        //} else {
-        //    this.tableName = "งานจัดเก็บและจ่ายสินค้าแช่แข็ง";
-        //}
-        this.pagenameValue = this.tableName
+        /*if (this.pagenameValue == "งานถอนขน") {
+            this.tableName = "งานถอนขน";
+        } else if (this.pagenameValue == "งานไก่ตกราว") {
+            this.tableName = "งานไก่ตกราว";
+        } else if (this.pagenameValue == "งานเชือดไก่") {
+            this.tableName = "งานเชือดไก่";
+        } else {
+            this.tableName = "งานจัดเก็บและจ่ายสินค้าแช่แข็ง";
+        }*/
+        this.tableName = "งานถอนขน"
     }
-    select_shiftcode(event) {
+    async select_shiftcode(event) {
         this.actual_count = 0
         this.plan_count = 0
         this.table = document.querySelector("#" + this.tableName + "_c")
@@ -29,8 +29,8 @@ export default class extends Controller {
                 each_row.style.display = "none";
             }
         })
-        this.retrieve_num_person()
-        this.actualCountTarget.textContent = this.actual_count
+        this.actual_count = await this.retrieve_num_person()
+        this.actualCountTarget.textContent = this.actual_count.message
             //plan time
         Array.from(this.table.rows).forEach((each_row) => {
             this.plan_row_with_time_select = each_row.querySelectorAll(`td.plan_${this.val}`)
@@ -40,22 +40,15 @@ export default class extends Controller {
         });
         this.planCountTarget.textContent = this.plan_count
     }
-    set_table_from_page() {
-        console.log(event.params)
-            // this.tableName = this.pagenameValue
-        this.tableName = event.params
-    }
     retrieve_num_person() {
-        $.ajax({
+        return $.ajax({
             type: "get",
             url: "/num_user",
-            data: { 'factory': $('#โรงงาน').textContent, 'department': this.tableName, 'code_name': this.val },
+            data: { 'factory': document.querySelector('#โรงงาน').innerHTML, 'department': this.tableName, 'code_name': this.val },
             success: function(response) {
-                set_num_people(response.message);
+
             },
         });
     }
-    set_num_people(messeage) {
-        this.actual_count = message
-    }
+
 }

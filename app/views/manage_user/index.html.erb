@@ -78,6 +78,8 @@
                 จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานถอนขน").length%> / 10 
                 <!-- จำนวนพนักงาน : <%=@actual_time.length%> / 10 -->
                 <%=render "manage_plan_w1_form"%>
+                <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+                <%=submit_tag("อัปเดต",class:"btn btn-success")%>
             </div>
         </div>
         <div id="work2" class="tabcontent">
@@ -85,6 +87,8 @@
                 จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานไก่ตกราว").length%> / 10 
                 <!-- จำนวนพนักงาน : <%=@actual_time.length%> / 10 -->
                 <%=render "manage_plan_w2_form"%>
+                <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+                <%=submit_tag("อัปเดต",class:"btn btn-success")%>
             </div>
         </div>
         <div id="work3" class="tabcontent">
@@ -92,6 +96,8 @@
                 จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานเชือดไก่").length%> / 10 
                 <!-- จำนวนพนักงาน : <%=@actual_time.length%> / 10 -->
                 <%=render "manage_plan_w3_form"%>
+                <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+                <%=submit_tag("อัปเดต",class:"btn btn-success")%>
             </div>
         </div>
 
@@ -100,6 +106,8 @@
                 จำนวนพนักงาน : <%=User.where(role:'คนงานทั่วไป',factory:@current_user.factory,department:"งานสินค้าแช่แข็ง").length%> / 10 
                 <!-- จำนวนพนักงาน : <%=@actual_time.length%> / 10 -->
                 <%=render "manage_plan_w4_form"%>
+                <%=link_to "ยกเลิก",main_page_path,class:"btn btn-danger"%>
+                <%=submit_tag("อัปเดต",class:"btn btn-success")%>
             </div>
         </div>
     </div> 

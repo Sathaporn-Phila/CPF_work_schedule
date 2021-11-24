@@ -83,19 +83,17 @@
         <%# <%end%> 
         
         <div data-controller="shiftcode">
-            <button class="tablink" onclick="openPage('งานถอนขน_p', this, '#5BA8A0')" data-action="shiftcode#set_table_from_page" data-shiftcode-pagename-param ="งานถอนขน">งานถอนขน</button>
+            <button class="tablink" onclick="openPage('งานถอนขน_p', this, '#5BA8A0')" data-action="shiftcode#set_table_from_page" data-shiftcode-pagename-param ="งานถอนขน" id="defaultOpen">งานถอนขน</button>
         </div>
         
         <div data-controller="shiftcode">
             <button class="tablink" onclick="openPage('งานไก่ตกราว_p', this, '#CBE54E')" data-action="shiftcode#set_table_from_page" data-shiftcode-pagename-param ="งานไก่ตกราว">งานไก่ตกราว</button>
         </div>
-        
-        
+                
         <div data-controller="shiftcode">
             <button class="tablink" onclick="openPage('งานเชือดไก่_p', this, '#94B447')" data-action="shiftcode#set_table_from_page" data-shiftcode-pagename-param ="งานเชือดไก่">งานเชือดไก่</button>
         </div>
-        
-        
+               
         <div data-controller="shiftcode">
             <button class="tablink" onclick="openPage('งานจัดเก็บและจ่ายสินค้าแช่แข็ง_p', this, '#5D6E1E')" data-action="shiftcode#set_table_from_page" data-shiftcode-pagename-param ="งานจัดเก็บและจ่ายสินค้าแช่แข็ง">สินค้าแช่แข็ง</button>
         </div>
@@ -110,6 +108,13 @@
         <div class="display-font h3 text-center" data-controller="shiftcode">
             <div>จำนวนพนักงาน(ที่มี/ต้องการ) <span data-shiftcode-target="actualCount"><%=@actual_time.where(department_name:"งานถอนขน", factory: @current_user.factory).length%></span> / <span data-shiftcode-target="planCount"><%=@plantime.length%></span></div>
             <div>เวลากะ : <%=select_tag :shiftcode,options_from_collection_for_select(@shift_code.limit(48),:code_name,:code_name),data:{action:"shiftcode#select_shiftcode"}%></div>        
+        
+            <!--<div data-controller="shiftcode">
+                <select name=:shiftcode >
+                    <>
+                </select>
+            </div>-->
+        
         </div>
         <div id="actual_table1" class="minitabcontent" style="height: 400px; overflow: auto">    
             <table class="table table-striped table-light" border="1" width="50%" cellspacing='0' cellpadding='10' style="height: 400px">
