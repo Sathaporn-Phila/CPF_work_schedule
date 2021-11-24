@@ -9,18 +9,27 @@ consumer.subscriptions.create({ channel: "ActualTimeChannel", room: "schedule_ro
         if (data['role'] == "คนงานทั่วไป") {
             var type = '_c'
         }
-        console.log(data)
+        this.check_shift_code(data)
+        this.show_or_delete_data_row(data, type)
+    },
+    check_shift_code(data) {
+        this.select_code = $(`#shift_code_${data['department']}`)[0].value
+        if (this.select_code == data['shift_code'] || this.select_code == null) {
+            this.elem = `<tr id=${data['name']} style="display:table-row;"><td>` + data["name"] + '</td>' + '<td>' + data["time_in"] + '</td>' + '<td>' + data['time_out'] + '</td>' + `<td class=time_${data['shift_code']}>` + data['shift_code'] + '</td>' + '<td>' + data['department'] + '</td>' + '<td>' + data['ot_time'] + '</td>' + '</tr>'
+        } else {
+            this.elem = `<tr id=${data['name']} style="display:none;"><td>` + data["name"] + '</td>' + '<td>' + data["time_in"] + '</td>' + '<td>' + data['time_out'] + '</td>' + `<td class=time_${data['shift_code']}>` + data['shift_code'] + '</td>' + '<td>' + data['department'] + '</td>' + '<td>' + data['ot_time'] + '</td>' + '</tr>'
+        }
+    },
+    show_or_delete_data_row(data, type) {
         const sel = "#" + data['department'] + type;
-        console.log(sel)
         const element = document.querySelector(sel);
-        const elem = `<tr id=${data['name']}><td>` + data["name"] + '</td>' + '<td>' + data["time_in"] + '</td>' + '<td>' + data['time_out'] + '</td>' + `<td class=time_${data['shift_code']}>` + data['shift_code'] + '</td>' + '<td>' + data['department'] + '</td>' + '<td>' + data['ot_time'] + '</td>' + '</tr>'
-        console.log(data['ot_time'])
+
         if (data["act"] == "show") {
-            element.insertAdjacentHTML("beforeend", elem);
+            element.insertAdjacentHTML("beforeend", this.elem);
         } else {
             this.time_elem = document.querySelectorAll(`tr#${data['name']}`)
             this.time_elem[this.time_elem.length - 1].remove()
-            element.insertAdjacentHTML("beforeend", elem);
+            element.insertAdjacentHTML("beforeend", this.elem);
         }
     }
 })

@@ -11,7 +11,6 @@ class CreateUsers < ActiveRecord::Migration[6.1]
       t.string :password_digest
       t.string :role
       t.string :phone_number
-      t.references :sector
       t.timestamps
     end
   end

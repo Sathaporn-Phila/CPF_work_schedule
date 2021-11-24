@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get '/manage_user',to: 'manage_user#index'
   post '/manage_user',to: 'manage_user#manage_worker'
   post '/manage_user/update_ot',to: 'manage_user#update_ot'
+  get '/num_user',to: 'dashboard#get_num_person_shiftcode'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

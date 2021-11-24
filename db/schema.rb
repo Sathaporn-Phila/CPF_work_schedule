@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2021_11_14_152616) do
   create_table "schedule_actual_times", force: :cascade do |t|
     t.string "department_name"
     t.string "factory"
+    t.string "code_name"
     t.datetime "time_in"
     t.datetime "time_out"
     t.integer "user_id", null: false

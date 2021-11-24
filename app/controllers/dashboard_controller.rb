@@ -21,6 +21,7 @@ class DashboardController < ApplicationController
         if ScheduleActualTime.all.where(user_id: current_user.id).length == 0
             @time_object = ScheduleActualTime.create(
                 :time_in=>DateTime.now(),
+                :code_name=>current_user.shiftcodes.last.code_name,
                 :department_name=>current_user.department,
                 :factory=>current_user.factory
             )
@@ -108,5 +109,12 @@ class DashboardController < ApplicationController
         else
           render 'register_user'
         end        
-    end 
+    end
+    def get_num_person_shiftcode
+        @num_person = ScheduleActualTime.where(factory:params['factory'],department_name:params['department'],code_name:params['code_name']).length
+        respond_to do |format|
+            msg = { :status => "ok", :message => @num_person}
+            format.json  { render :json => msg }
+        end
+    end
 end
