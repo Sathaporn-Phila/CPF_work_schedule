@@ -4,16 +4,16 @@ export default class extends Controller {
     static targets = ["actualCount", "planCount"]
     static values = { pagename: String, factory: String }
     connect() {
-        // if (this.pagenameValue == "งานถอนขน") {
-        //     this.tableName = "งานถอนขน";
-        // } else if (this.pagenameValue == "งานไก่ตกราว") {
-        //     this.tableName = "งานไก่ตกราว";
-        // } else if (this.pagenameValue == "งานเชือดไก่") {
-        //     this.tableName = "งานเชือดไก่";
-        // } else {
-        //     this.tableName = "งานจัดเก็บและจ่ายสินค้าแช่แข็ง";
-        // }
-        this.tableName = "งานถอนขน"
+        //if (this.pagenameValue == "งานถอนขน") {
+        //    this.tableName = "งานถอนขน";
+        //} else if (this.pagenameValue == "งานไก่ตกราว") {
+        //    this.tableName = "งานไก่ตกราว";
+        //} else if (this.pagenameValue == "งานเชือดไก่") {
+        //    this.tableName = "งานเชือดไก่";
+        //} else {
+        //    this.tableName = "งานจัดเก็บและจ่ายสินค้าแช่แข็ง";
+        //}
+        this.pagenameValue = this.tableName
     }
     select_shiftcode(event) {
         this.actual_count = 0
